@@ -3,7 +3,7 @@ import java.awt.Color;
 
 public class Meteor  {
 
-        int size = 36;
+        int size = 32;
         public int posx;
         public int posy;
         public int dirx = 0;
@@ -16,13 +16,9 @@ public class Meteor  {
 
         public void draw (Graphics g) {
                 g.setColor(Color.BLACK);
-                g.fillOval((posx-1)*40+2,(posy-1)*40+2,size,size);
-                g.setColor(Color.BLACK);
-                g.fillOval((posx-1)*40+10,(posy-1)*40+7,6,6);
-                g.fillOval((posx-1)*40+25,(posy-1)*40+7,6,6);
-                g.fillOval((posx-1)*40+15,(posy-1)*40+15,10,10);
+                g.fillOval((posx-1)*36+2,80+(posy-1)*36+2,size,size);
                 g.setColor(Color.GREEN);
-                g.fillRect((posx-1)*40+15,(posy-1)*40+15,10,5);
+                g.fillRect((posx-1)*36+15,80+(posy-1)*36+15,8,5);
         }
 
         public void move() {
@@ -130,7 +126,6 @@ public class Meteor  {
                 if (position[1]>19) {
                         position[1] = 0;
                 }
-		///////Problema
                 return position;
 	}
 

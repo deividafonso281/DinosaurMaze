@@ -3,7 +3,7 @@ import java.awt.Color;
 
 public class Tree  {
 
-        int size = 36;
+        int size = 32;
         public int posx;
         public int posy;
 	public boolean isObstacle;
@@ -17,7 +17,7 @@ public class Tree  {
         public void draw (Graphics g) {
 		if (isObstacle == true) {
                 	g.setColor(Color.RED);
-                	g.fillOval((posx-1)*40+2,(posy-1)*40+2,size,size);
+                	g.fillOval((posx-1)*36+2,80+(posy-1)*36+2,size,size);
         	}
 	}
 

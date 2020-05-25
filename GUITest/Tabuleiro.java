@@ -5,23 +5,35 @@ import java.awt.event.KeyListener;
 import java.awt.event.KeyEvent;
 import java.awt.Color;
 import java.util.Random;
+import java.math.BigInteger;
+import javax.swing.JLabel;
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
 
 public class Tabuleiro extends JPanel implements KeyListener{
 	
 	
+	private JLabel scoreBoard = new JLabel("Score:0");
+	private BigInteger score = new BigInteger("0");
 	private Timer timer = new Timer(100,new GameLoop(this));
-	Dinosaur max = new Dinosaur(9,9);
-	Meteor[] met = new Meteor[5];
-	Color fundo = new Color(217,200,158);
+	private Dinosaur max = new Dinosaur(9,9);
+	private Meteor[] met = new Meteor[5];
+	private Color fundo = new Color(217,200,158);
 	private Tree[][] Obstacles = new Tree[20][20];
-	Random aleatorio = new Random();
-	int count = 0;			
+	private Random aleatorio = new Random();
+	private int count = 0;			
+	private String textScore;
 
 	public Tabuleiro() {
-		this.timer.start();
 		addKeyListener(this);
 		setFocusable(true);
 		createMap();
+		add(scoreBoard);
+	}
+	
+
+	public void startTimer() {
+		this.timer.start();
 	}
 	
 	public  void createMap() {
@@ -62,12 +74,12 @@ public class Tabuleiro extends JPanel implements KeyListener{
 	public void paintComponent (Graphics g) {
 		setBackground(fundo);
 		super.paintComponent(g);
-		int width = 800;
-		int height = 800;
-		int pace = 40;
-		for (int i=1;i<=20;i++) {
-			g.drawLine(0,i*pace,width,i*pace);
-			g.drawLine(i*pace,0,i*pace,height);
+		int width = 720;
+		int height = 720;
+		int pace = 36;
+		for (int i=0;i<=20;i++) {
+			g.drawLine(0,80+i*pace,width,80+i*pace);
+			g.drawLine(i*pace,80,i*pace,height+80);
 		}
 		for (int i=0;i<20;i++) {
 			for (int j=0;j<20;j++) {
@@ -141,7 +153,11 @@ public class Tabuleiro extends JPanel implements KeyListener{
 	public void doOneLoop() {
 		update();
 		repaint();
-		//System.out.printf("Dirx: %d Diry: %d Posx: %d Posy: %d\n", max.dirx, max.diry, max.posx, max.posy);
+		if (count==1) {
+			score = score.add(BigInteger.valueOf(1));
+			textScore = String.format("Score: " + score.toString());
+			scoreBoard.setText(textScore);
+		}
 	}
 	
 	public void keyPressed(KeyEvent event) {

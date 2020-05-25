@@ -1,13 +1,18 @@
 import java.awt.Graphics;
 import java.awt.Color;
+import javax.imageio.ImageIO;
+import java.io.File;
+import java.io.IOException;
+import java.awt.image.BufferedImage;
 
 public class Dinosaur  {
 
-	int size = 36;
+	int size = 32;
 	public int posx;
 	public int posy;
 	public int dirx = 0;
 	public int diry = 1;
+	private BufferedImage img = null;
 	
 	public Dinosaur (int i, int j) {
 	 	 posx = i;
@@ -15,14 +20,11 @@ public class Dinosaur  {
 	}
 	
 	public void draw (Graphics g) {
-		g.setColor(Color.GREEN);
-		g.fillOval((posx-1)*40+2,(posy-1)*40+2,size,size);
-		g.setColor(Color.BLACK);
-		g.fillOval((posx-1)*40+10,(posy-1)*40+7,6,6);
-		g.fillOval((posx-1)*40+25,(posy-1)*40+7,6,6);
-		g.fillOval((posx-1)*40+15,(posy-1)*40+15,10,10);
-		g.setColor(Color.GREEN);
-		g.fillRect((posx-1)*40+15,(posy-1)*40+15,10,5);
+		try {
+			img = ImageIO.read(new File("Dinossauro.png"));
+		} catch (IOException e) {
+		}
+		g.drawImage(img, (posx-1)*36+2,80+(posy-1)*36+2, null);
 	}
 	
 	public void move() {
