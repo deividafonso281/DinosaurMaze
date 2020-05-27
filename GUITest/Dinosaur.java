@@ -100,4 +100,10 @@ public class Dinosaur  {
 		}
 		return position;
 	}
+	public int[] getAtual() {
+		int[] position = new int[2];
+		position[0] = posx-1;
+		position[1] = posy-1;
+		return position;
+	}
 }

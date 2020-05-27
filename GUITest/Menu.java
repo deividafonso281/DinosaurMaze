@@ -37,7 +37,7 @@ public class Menu extends JPanel {
 		buttonScoreBoard.addActionListener(
 			new ActionListener() {
 				public void actionPerformed(ActionEvent event) {
-					;
+					cl.show(panelCont, "3");
 				}
 			}
 		);

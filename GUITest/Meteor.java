@@ -1,13 +1,16 @@
 import java.awt.Graphics;
-import java.awt.Color;
+import javax.imageio.ImageIO;
+import java.io.File;
+import java.io.IOException;
+import java.awt.image.BufferedImage;
 
 public class Meteor  {
 
-        int size = 32;
-        public int posx;
-        public int posy;
-        public int dirx = 0;
-        public int diry = 1;
+        private int posx;
+        private int posy;
+        private int dirx = 0;
+        private int diry = 1;
+	private BufferedImage img = null;
 
         public Meteor (int i, int j) {
                  posx = i;
@@ -15,10 +18,34 @@ public class Meteor  {
         }
 
         public void draw (Graphics g) {
-                g.setColor(Color.BLACK);
-                g.fillOval((posx-1)*36+2,80+(posy-1)*36+2,size,size);
-                g.setColor(Color.GREEN);
-                g.fillRect((posx-1)*36+15,80+(posy-1)*36+15,8,5);
+                if (dirx==0&&diry==-1) {
+			try {
+				img = ImageIO.read(new File("onfire_baixo.png"));
+			} catch (IOException e){
+			}
+			g.drawImage(img,(posx-1)*36,80+(posy-1)*36,null); 
+		}
+		else if (dirx==0&&diry==1) {
+                        try {
+                                img = ImageIO.read(new File("onfire_cima.png"));
+                        } catch (IOException e){
+                        }
+                        g.drawImage(img,(posx-1)*36,80+(posy-2)*36,null);
+                }
+		else if (dirx==1&&diry==0) {
+                        try {
+                                img = ImageIO.read(new File("onfire_esq.png"));
+                        } catch (IOException e){
+                        }
+                        g.drawImage(img,(posx-2)*36,80+(posy-1)*36,null);
+                }
+		else if (dirx==-1&&diry==0) {
+                        try {
+                                img = ImageIO.read(new File("onfire_dir.png"));
+                        } catch (IOException e){
+                        }
+                        g.drawImage(img,(posx-1)*36,80+(posy-1)*36,null);
+                }
         }
 
         public void move() {
@@ -113,7 +140,6 @@ public class Meteor  {
                         position[0] = posx-1;
                         position[1] = posy;
                 }
-		////Problema
 		if  (position[0]<0) {
                         position[0]=19;
                 }       
@@ -160,5 +186,12 @@ public class Meteor  {
                         position[1] = 0;
                 }
                 return position;
+	}
+	
+	public int[] getAtual() {
+		int[] position = new int[2];
+		position[0] = posx - 1;
+		position[1] = posy - 1;
+		return position;
 	}
 }

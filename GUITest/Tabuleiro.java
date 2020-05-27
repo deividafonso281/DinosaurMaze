@@ -9,14 +9,20 @@ import java.math.BigInteger;
 import javax.swing.JLabel;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
+import java.awt.CardLayout;
 
 public class Tabuleiro extends JPanel implements KeyListener{
 	
 	
-	private JLabel scoreBoard = new JLabel("Score:0");
-	private BigInteger score = new BigInteger("0");
+	private JPanel panelCont;
+	private CardLayout cl;
+	private Login login;
+	private LeaderBoard leaderBoard;
+	private JLabel scoreBoard = new JLabel();
+	private BigInteger score;
 	private Timer timer = new Timer(100,new GameLoop(this));
-	private Dinosaur max = new Dinosaur(9,9);
+	private Dinosaur max;
 	private Meteor[] met = new Meteor[5];
 	private Color fundo = new Color(217,200,158);
 	private Tree[][] Obstacles = new Tree[20][20];
@@ -66,9 +72,19 @@ public class Tabuleiro extends JPanel implements KeyListener{
 				Obstacles[i][13].setObstacle();
 			}
 		}
+		// Cruz 
+		Obstacles[16][3].setObstacle();
+		Obstacles[16][2].setObstacle();
+		Obstacles[16][4].setObstacle();
+		Obstacles[15][3].setObstacle();
+		Obstacles[17][3].setObstacle();
 		for (int i=0;i<5;i++) {
 			met[i] = new Meteor(2,2+i);
 		}
+		max = new Dinosaur(9,9);
+		score = new BigInteger("0");
+		textScore = String.format("Score:"+score.toString());
+		scoreBoard.setText(textScore);
 	}
 
 	public void paintComponent (Graphics g) {
@@ -150,6 +166,28 @@ public class Tabuleiro extends JPanel implements KeyListener{
 		count = (count+1)%2;
 	}
 	
+	public void killMax() {
+		boolean alive = true;
+		int[] maxpos = new int[2];
+		int[] meteorpos = new int[2];
+		maxpos = max.getAtual();
+		for (int i=0;i<5&&alive;i++) {
+			meteorpos = met[i].getAtual();
+			if (meteorpos[0]==maxpos[0]&&meteorpos[1]==maxpos[1]) {
+				alive = false;
+			}
+		}
+		if (alive == false) {
+			this.timer.stop();
+			String message = String.format("Max died.\n Your score is: " + score.toString());
+			Score pontuation = new Score(score,login.getUsername());
+			leaderBoard.addScore(pontuation);
+			int choice = JOptionPane.showConfirmDialog(this,message,"Aviso",JOptionPane.OK_CANCEL_OPTION,JOptionPane.PLAIN_MESSAGE);
+			cl.show(panelCont,"1");
+			createMap();
+		}
+	}
+	
 	public void doOneLoop() {
 		update();
 		repaint();
@@ -158,6 +196,7 @@ public class Tabuleiro extends JPanel implements KeyListener{
 			textScore = String.format("Score: " + score.toString());
 			scoreBoard.setText(textScore);
 		}
+		killMax();
 	}
 	
 	public void keyPressed(KeyEvent event) {
@@ -185,4 +224,12 @@ public class Tabuleiro extends JPanel implements KeyListener{
 	public void keyReleased (KeyEvent event) {
 		;
 	}
+	
+	public void setReferences(JPanel panelCont, CardLayout cardLayout, Login login, LeaderBoard leaderBoard) {
+                this.panelCont = panelCont;
+                this.cl = cardLayout;
+		this.login = login;
+		this.leaderBoard = leaderBoard;
+                System.out.println("References setadas Login");
+        }
 }
