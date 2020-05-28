@@ -4,6 +4,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.Color;
 import java.awt.CardLayout;
+import javax.swing.JOptionPane;
 
 public class Menu extends JPanel {
 
@@ -48,7 +49,7 @@ public class Menu extends JPanel {
 		buttonLoja.addActionListener (
 			new ActionListener() {
 				public void actionPerformed (ActionEvent event) {
-					;
+					JOptionPane.showMessageDialog(Menu.this,"Loja temporariamente indisponivel\nVolte mais tarde para adquirir novas skins");
 				}
 			}
 		);
@@ -59,7 +60,7 @@ public class Menu extends JPanel {
 		buttonOptions.addActionListener(
 			new ActionListener() {
 				public void actionPerformed (ActionEvent event) {
-					;
+					JOptionPane.showMessageDialog(Menu.this,"Em breve novas features");
 				}
 			}
 		);

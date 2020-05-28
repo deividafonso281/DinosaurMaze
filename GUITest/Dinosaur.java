@@ -12,19 +12,41 @@ public class Dinosaur  {
 	public int posy;
 	public int dirx = 0;
 	public int diry = 1;
-	private BufferedImage img = null;
+	private BufferedImage max_cima_dir;
+        private BufferedImage max_baixo_dir;
+        private BufferedImage max_cima_esq;
+        private BufferedImage max_baixo_esq;
+	private BufferedImage img;
 	
 	public Dinosaur (int i, int j) {
-	 	 posx = i;
-		 posy = j;
+	 	posx = i;
+		posy = j;
+		setImages();
+	}
+	
+	private void setImages() {
+		try {
+                        max_cima_dir = ImageIO.read(new File("max1_direita.png"));
+                } catch (IOException e) {
+                }
+		try {
+                        max_baixo_dir = ImageIO.read(new File("Max2_direita.png"));
+                } catch (IOException e) {
+                }
+		try {
+                        max_cima_esq = ImageIO.read(new File("Max1_esquerda.png"));
+                } catch (IOException e) {
+                }
+		try {
+                        max_baixo_esq = ImageIO.read(new File("Max2_esquerda.png"));
+                } catch (IOException e) {
+                }
+		img = max_baixo_esq;
+	
 	}
 	
 	public void draw (Graphics g) {
-		try {
-			img = ImageIO.read(new File("Dinossauro.png"));
-		} catch (IOException e) {
-		}
-		g.drawImage(img, (posx-1)*36+2,80+(posy-1)*36+2, null);
+		g.drawImage(img, (posx-1)*36,80+(posy-1)*36, null);
 	}
 	
 	public void move() {

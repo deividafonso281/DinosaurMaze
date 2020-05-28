@@ -10,41 +10,48 @@ public class Meteor  {
         private int posy;
         private int dirx = 0;
         private int diry = 1;
-	private BufferedImage img = null;
+	private BufferedImage onfire_cima;
+	private BufferedImage onfire_baixo;
+	private BufferedImage onfire_esq;
+	private BufferedImage onfire_dir;
 
         public Meteor (int i, int j) {
-                 posx = i;
-                 posy = j;
+                posx = i;
+                posy = j;
+		setImages();
         }
 
+	private void setImages() {
+		try {
+                	onfire_esq = ImageIO.read(new File("onfire_esq.png"));
+                } catch (IOException e){
+                }
+		try {
+                        onfire_baixo = ImageIO.read(new File("onfire_baixo.png"));
+                } catch (IOException e){
+                }
+		try {
+                        onfire_cima = ImageIO.read(new File("onfire_cima.png"));
+                } catch (IOException e){
+                }
+		try {
+                        onfire_dir = ImageIO.read(new File("onfire_dir.png"));
+                } catch (IOException e){
+                }
+	}
+	
         public void draw (Graphics g) {
                 if (dirx==0&&diry==-1) {
-			try {
-				img = ImageIO.read(new File("onfire_baixo.png"));
-			} catch (IOException e){
-			}
-			g.drawImage(img,(posx-1)*36,80+(posy-1)*36,null); 
+			g.drawImage(onfire_baixo,(posx-1)*36,80+(posy-1)*36,null); 
 		}
 		else if (dirx==0&&diry==1) {
-                        try {
-                                img = ImageIO.read(new File("onfire_cima.png"));
-                        } catch (IOException e){
-                        }
-                        g.drawImage(img,(posx-1)*36,80+(posy-2)*36,null);
+                        g.drawImage(onfire_cima,(posx-1)*36,80+(posy-2)*36,null);
                 }
 		else if (dirx==1&&diry==0) {
-                        try {
-                                img = ImageIO.read(new File("onfire_esq.png"));
-                        } catch (IOException e){
-                        }
-                        g.drawImage(img,(posx-2)*36,80+(posy-1)*36,null);
+                        g.drawImage(onfire_esq,(posx-2)*36,80+(posy-1)*36,null);
                 }
 		else if (dirx==-1&&diry==0) {
-                        try {
-                                img = ImageIO.read(new File("onfire_dir.png"));
-                        } catch (IOException e){
-                        }
-                        g.drawImage(img,(posx-1)*36,80+(posy-1)*36,null);
+                        g.drawImage(onfire_dir,(posx-1)*36,80+(posy-1)*36,null);
                 }
         }
 
