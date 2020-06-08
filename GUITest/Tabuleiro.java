@@ -29,6 +29,7 @@ public class Tabuleiro extends JPanel implements KeyListener{
 	private Random aleatorio = new Random();
 	private int count = 0;			
 	private String textScore;
+	private Arbusto arbusto;
 
 	public Tabuleiro() {
 		addKeyListener(this);
@@ -43,6 +44,7 @@ public class Tabuleiro extends JPanel implements KeyListener{
 	}
 	
 	public  void createMap() {
+		arbusto = new Arbusto(2,2);
 		for (int i=0;i<20;i++) {
                 	for (int j=0;j<20;j++) {
                         	Obstacles[i][j] = new Tree(i+1,j+1);
@@ -106,6 +108,7 @@ public class Tabuleiro extends JPanel implements KeyListener{
 		for (int i=0;i<5;i++) {
 			met[i].draw(g);
 		}
+		arbusto.draw(g);
 	}
 
 	private void update() {
