@@ -1,5 +1,6 @@
 public interface ICenario {
-	public void setVisible();
-	public void setObstacle();
+	public void setVisible(boolean vis);
+	public void setObstacle(boolean obs);
 	public boolean getObstacle();
+	public boolean getVisible();
 }

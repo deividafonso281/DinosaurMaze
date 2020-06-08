@@ -9,11 +9,13 @@ public class ScoreList implements Serializable {
 
 	public void addScore(Score score_new) {
 		int pos = findPos(score_new);
-		if (length==15&&pos!=-1) {
-			for (int i=pos;i<length;i++) {
-				aux = positions[i];
-				positions[i] = score_new;
-				score_new = aux;
+		if (length==15){
+			if (pos!=-1) {
+				for (int i=pos;i<length;i++) {
+					aux = positions[i];
+					positions[i] = score_new;
+					score_new = aux;
+				}
 			}
 		}
 		else {

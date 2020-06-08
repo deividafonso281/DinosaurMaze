@@ -5,13 +5,8 @@ import java.io.File;
 import java.io.IOException;
 import java.awt.image.BufferedImage;
 
-public class Dinosaur  {
+public class Dinosaur extends PMovimento {
 
-	int size = 32;
-	public int posx;
-	public int posy;
-	public int dirx = 0;
-	public int diry = 1;
 	private BufferedImage max_cima_dir;
         private BufferedImage max_baixo_dir;
         private BufferedImage max_cima_esq;
@@ -19,8 +14,7 @@ public class Dinosaur  {
 	private BufferedImage img;
 	
 	public Dinosaur (int i, int j) {
-	 	posx = i;
-		posy = j;
+	 	super(i,j);
 		setImages();
 	}
 	
@@ -50,82 +44,30 @@ public class Dinosaur  {
 	}
 	
 	public void move() {
-		this.posx += dirx;
-		if (this.posx>20) {
-			this.posx = 1;
-		}
-		if (this.posx<1) {
-			this.posx= 20;
-		}
-		this.posy += diry;
-		if (this.posy>20) {
-			this.posy = 1;
-		}
-		if (this.posy<1) {
-			this.posy = 20;
-		}
+		super.move();
 	}
 	
 	public void turnRight() {
-		if (this.dirx==0&&this.diry==1) {
-			this.dirx = -1;
-			this.diry = 0;
-		}
-		else if (this.dirx==-1&&this.diry==0) {
-			this.dirx = 0;
-			this.diry = -1; 
-		}
-		else if (this.dirx==0&&this.diry==-1) {
-			this.dirx = 1;
-			this.diry = 0;
-		}
-		else {
-			this.dirx = 0;
-			this.diry = 1;
-		}
+		super.turnRight();
 	}
 
 	public void turnLeft() {
-		if (this.dirx==0&&this.diry==1) {
-                        this.dirx = 1;
-                        this.diry = 0;
-                }
-                else if (this.dirx==1&&this.diry==0) {
-                        this.dirx = 0;
-                        this.diry = -1;
-                }
-                else if (this.dirx==0&&this.diry==-1) {
-                        this.dirx = -1;
-                        this.diry = 0;
-                }
-                else {
-                        this.dirx = 0;
-                        this.diry = 1;
-                }
+		super.turnLeft();
 	}
 	
 	public int[] getNext() {
-		int[] position = new int[2];
-		position[0] = (posx-1)+dirx;
-		position[1] = (posy-1)+diry;
-		if  (position[0]<0) {
-			position[0]=19;
-		}
-		if (position[0]>19) {
-			position[0] = 0;
-		}
-		if (position[1]<0) {
-			position[1] = 19;
-		}
-		if (position[1]>19) {
-			position[1] = 0;
-		}
-		return position;
+		return super.getNext();
 	}
+
 	public int[] getAtual() {
-		int[] position = new int[2];
-		position[0] = posx-1;
-		position[1] = posy-1;
-		return position;
+		return super.getAtual();
+	}
+
+	public int[] getLeft() {
+		return super.getLeft();
+	}
+	
+	public int[] getRight() {
+		return super.getRight();
 	}
 }

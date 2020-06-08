@@ -4,42 +4,31 @@ import java.io.File;
 import java.io.IOException;
 import java.awt.image.BufferedImage;
 
-public class Arbusto  {
-
-        public int posx;
-        public int posy;
-        public boolean isObstacle;
-	public boolean isVisible;
-        private BufferedImage img = null;
+public class Arbusto extends Cenario {
 
         public Arbusto (int i, int j) {
-                 posx = i;
-                 posy = j;
-                 isObstacle = false;
-		 isVisible = true;
+                 super(i,j,false,true);
+		 setSrc("novo_arbusto.png");
         }
 
         public void draw (Graphics g) {
-                if (isVisible == true) {
-                        try {
-                                img = ImageIO.read(new File("novo_arbusto.png"));
-                        } catch (IOException e) {
-                        }
-                        g.drawImage(img, (posx-1)*36,80+(posy-1)*36,null);
-                }
+                super.draw(g);
         }
 
-        public void setObstacle () {
-                isObstacle = true;
+        public void setObstacle (boolean obs) {
+                super.setObstacle(obs);
         }
         public boolean getObstacle() {
-                return isObstacle;
+                return super.getObstacle();
         }
-	public void setVisible(boolean canSee) {
-		isVisible = canSee;
+	public void setVisible(boolean vis) {
+		super.setVisible(vis);
 	}
 	public boolean getVisible() {
-		return isVisible;
+		return super.getVisible();
+	}
+	public void setSrc(String src) {
+		super.setSrc(src);
 	}
 }
 
