@@ -18,8 +18,8 @@ public class DesenhaTabuleiro {
 		panelCont.setLayout(cl);
 		menu.setReferences(panelCont, cl, panel);
 		login.setReferences(panelCont,cl);
-		panel.setReferences(panelCont,cl,login,leaderBoard);
-		leaderBoard.setReferences(panelCont,cl);
+		panel.setReferences(panelCont,cl,login,leaderBoard,menu);
+		leaderBoard.setReferences(panelCont,cl,menu);
 		panelCont.add(menu, "1");
 		panelCont.add(panel, "2");
 		panelCont.add(login,"login");

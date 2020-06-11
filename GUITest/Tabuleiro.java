@@ -18,6 +18,7 @@ public class Tabuleiro extends JPanel implements KeyListener{
 	private JPanel panelCont;
 	private CardLayout cl;
 	private Login login;
+	private Menu menu;
 	private LeaderBoard leaderBoard;
 	private JLabel scoreBoard = new JLabel();
 	private BigInteger score;
@@ -185,6 +186,7 @@ public class Tabuleiro extends JPanel implements KeyListener{
 			Score pontuation = new Score(score,login.getUsername());
 			leaderBoard.addScore(pontuation);
 			int choice = JOptionPane.showConfirmDialog(this,message,"Aviso",JOptionPane.OK_CANCEL_OPTION,JOptionPane.PLAIN_MESSAGE);
+			menu.startTimer();
 			cl.show(panelCont,"1");
 			createMap();
 		}
@@ -227,11 +229,12 @@ public class Tabuleiro extends JPanel implements KeyListener{
 		;
 	}
 	
-	public void setReferences(JPanel panelCont, CardLayout cardLayout, Login login, LeaderBoard leaderBoard) {
+	public void setReferences(JPanel panelCont, CardLayout cardLayout, Login login, LeaderBoard leaderBoard, Menu menu) {
                 this.panelCont = panelCont;
                 this.cl = cardLayout;
 		this.login = login;
 		this.leaderBoard = leaderBoard;
+		this.menu = menu;
                 System.out.println("References setadas Login");
         }
 }

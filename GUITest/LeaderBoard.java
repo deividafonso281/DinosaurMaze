@@ -11,6 +11,7 @@ public class LeaderBoard extends JPanel {
 	private ScoreListReader scoreListReader = new ScoreListReader();
 	private JPanel panelCont;
 	private CardLayout cl;
+	private Menu menu;
 	private ScoreList scoreList;
 	private JButton goBack;
 	private JLabel title;
@@ -33,6 +34,7 @@ public class LeaderBoard extends JPanel {
 		goBack.addActionListener(
 			new ActionListener() {
 				public void actionPerformed(ActionEvent event) {
+					menu.startTimer();
 					cl.show(panelCont,"1");
 				}
 			}
@@ -42,9 +44,10 @@ public class LeaderBoard extends JPanel {
 		add(goBack);
 	}
 	
-	public void setReferences(JPanel panelCont, CardLayout cl) {
+	public void setReferences(JPanel panelCont, CardLayout cl, Menu menu) {
 		this.panelCont = panelCont;
 		this.cl = cl;
+		this.menu = menu;
 	}
 	
 	public void addScore(Score score) {
