@@ -3,6 +3,8 @@ import javax.swing.JPanel;
 import javax.swing.Timer;
 import java.awt.event.KeyListener;
 import java.awt.event.KeyEvent;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.Color;
 import java.util.Random;
 import java.math.BigInteger;
@@ -12,7 +14,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import java.awt.CardLayout;
 
-public class Tabuleiro extends JPanel implements KeyListener{
+public class Tabuleiro extends JPanel {
 	
 	
 	private JPanel panelCont;
@@ -21,8 +23,8 @@ public class Tabuleiro extends JPanel implements KeyListener{
 	private Menu menu;
 	private LeaderBoard leaderBoard;
 	private JLabel scoreBoard = new JLabel();
-	private BigInteger score;
-	private Timer timer = new Timer(100,new GameLoop(this));
+	private Score pontuation;
+	private Timer timer = new Timer(100,(ActionEvent event)->doOneLoop());
 	private Dinosaur max;
 	private Meteor[] met = new Meteor[5];
 	private Color fundo = new Color(217,200,158);
@@ -31,10 +33,11 @@ public class Tabuleiro extends JPanel implements KeyListener{
 	private int count = 0;			
 	private String textScore;
 
-	public Tabuleiro() {
-		addKeyListener(this);
+	public Tabuleiro(JPanel panelCont, CardLayout cardLayout, Login login, LeaderBoard leaderBoard, Menu menu) {
+		setReferences(panelCont, cardLayout, login, leaderBoard, menu);
 		setFocusable(true);
 		createMap();
+		addKeyListener(max);
 		add(scoreBoard);
 	}
 	
@@ -78,13 +81,13 @@ public class Tabuleiro extends JPanel implements KeyListener{
 		Obstacles[16][2] = new Tree(17,3);
 		Obstacles[16][4] = new Tree(17,5);
 		Obstacles[15][3] = new Tree(16,4);
-		Obstacles[17][3] = new Tree(17,3);
+		Obstacles[17][3] = new Tree(18,4);
 		for (int i=0;i<5;i++) {
 			met[i] = new Meteor(2,2+i);
 		}
 		max = new Dinosaur(9,9);
-		score = new BigInteger("0");
-		textScore = String.format("Score:"+score.toString());
+		pontuation = new Score(0,login.getUsername());
+		textScore = String.format("Score:"+pontuation.getPontuation().toString());
 		scoreBoard.setText(textScore);
 	}
 
@@ -182,13 +185,13 @@ public class Tabuleiro extends JPanel implements KeyListener{
 		}
 		if (alive == false) {
 			this.timer.stop();
-			String message = String.format("Max died.\n Your score is: " + score.toString());
-			Score pontuation = new Score(score,login.getUsername());
+			String message = String.format("Max died.\n Your score is: " + pontuation.getPontuation().toString());
 			leaderBoard.addScore(pontuation);
 			int choice = JOptionPane.showConfirmDialog(this,message,"Aviso",JOptionPane.OK_CANCEL_OPTION,JOptionPane.PLAIN_MESSAGE);
 			menu.startTimer();
 			cl.show(panelCont,"1");
 			createMap();
+			addKeyListener(max);
 		}
 	}
 	
@@ -196,37 +199,11 @@ public class Tabuleiro extends JPanel implements KeyListener{
 		update();
 		repaint();
 		if (count==1) {
-			score = score.add(BigInteger.valueOf(1));
-			textScore = String.format("Score: " + score.toString());
+			pontuation.increment();
+			textScore = String.format("Score: " + pontuation.getPontuation().toString());
 			scoreBoard.setText(textScore);
 		}
 		killMax();
-	}
-	
-	public void keyPressed(KeyEvent event) {
-		if (event.getKeyCode()==39) {
-			max.turnRight();
-		}	
-		else if (event.getKeyCode()==37) {
-			max.turnLeft();
-		}
-		else if (event.getKeyCode()== KeyEvent.VK_D) {
-                        max.turnRight();
-                }
-                else if (event.getKeyCode()== KeyEvent.VK_A) {
-                        max.turnLeft();
-                }
-	}
-	public void keyTyped (KeyEvent event) {
-		if (event.getKeyCode()== KeyEvent.VK_D) {
-                        max.turnRight();
-                }
-                else if (event.getKeyCode()== KeyEvent.VK_A) {
-                        max.turnLeft();
-                }
-	}
-	public void keyReleased (KeyEvent event) {
-		;
 	}
 	
 	public void setReferences(JPanel panelCont, CardLayout cardLayout, Login login, LeaderBoard leaderBoard, Menu menu) {

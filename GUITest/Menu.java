@@ -33,13 +33,11 @@ public class Menu extends JPanel {
 		buttonJogar.setLocation(260,300);
 		add(buttonJogar);
 		buttonJogar.addActionListener(
-			new ActionListener() {
-				public void actionPerformed(ActionEvent event) {
+			(ActionEvent event)->{
 					timer.stop();
 					cl.show(panelCont, "2");
 					tabuleiro.requestFocus();
 					tabuleiro.startTimer();
-				}
 			}
 		);
 		buttonScoreBoard = new JButton("ScoreBoard");
@@ -47,11 +45,9 @@ public class Menu extends JPanel {
 		buttonScoreBoard.setLocation(260,400);
 		add(buttonScoreBoard);
 		buttonScoreBoard.addActionListener(
-			new ActionListener() {
-				public void actionPerformed(ActionEvent event) {
+			(ActionEvent event)->{
 					timer.stop();
 					cl.show(panelCont, "3");
-				}
 			}
 		);
 		buttonLoja = new JButton("Store");
@@ -59,10 +55,8 @@ public class Menu extends JPanel {
 		buttonLoja.setLocation(260,500);
 		add(buttonLoja);
 		buttonLoja.addActionListener (
-			new ActionListener() {
-				public void actionPerformed (ActionEvent event) {
+			(ActionEvent event)->{
 					JOptionPane.showMessageDialog(Menu.this,"Loja temporariamente indisponivel\nVolte mais tarde para adquirir novas skins");
-				}
 			}
 		);
 		buttonOptions = new JButton("Options");
@@ -70,10 +64,8 @@ public class Menu extends JPanel {
 		buttonOptions.setLocation(260,600);
 		add(buttonOptions);
 		buttonOptions.addActionListener(
-			new ActionListener() {
-				public void actionPerformed (ActionEvent event) {
+			(ActionEvent event)->{
 					JOptionPane.showMessageDialog(Menu.this,"Em breve novas features");
-				}
 			}
 		);
 		timer = new Timer(150,(ActionEvent event)-> {

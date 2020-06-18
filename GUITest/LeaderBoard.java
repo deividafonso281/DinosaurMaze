@@ -40,11 +40,9 @@ public class LeaderBoard extends JPanel {
 		update();
 		goBack = new JButton("Return");
 		goBack.addActionListener(
-			new ActionListener() {
-				public void actionPerformed(ActionEvent event) {
+			(ActionEvent event)->{
 					menu.startTimer();
 					cl.show(panelCont,"1");
-				}
 			}
 		);
 		goBack.setSize(100,40);

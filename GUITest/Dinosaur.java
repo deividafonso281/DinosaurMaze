@@ -4,8 +4,10 @@ import javax.imageio.ImageIO;
 import java.io.File;
 import java.io.IOException;
 import java.awt.image.BufferedImage;
+import java.awt.event.KeyListener;
+import java.awt.event.KeyEvent;
 
-public class Dinosaur extends PMovimento {
+public class Dinosaur extends PMovimento implements KeyListener{
 
 	private BufferedImage max_cima_dir;
         private BufferedImage max_baixo_dir;
@@ -70,4 +72,30 @@ public class Dinosaur extends PMovimento {
 	public int[] getRight() {
 		return super.getRight();
 	}
+
+	public void keyPressed(KeyEvent event) {
+                if (event.getKeyCode()==39) {
+                        turnRight();
+                }
+                else if (event.getKeyCode()==37) {
+                        turnLeft();
+                }
+                else if (event.getKeyCode()== KeyEvent.VK_D) {
+                        turnRight();
+                }
+                else if (event.getKeyCode()== KeyEvent.VK_A) {
+                        turnLeft();
+                }
+        }
+        public void keyTyped (KeyEvent event) {
+                if (event.getKeyCode()== KeyEvent.VK_D) {
+                        turnRight();
+                }
+                else if (event.getKeyCode()== KeyEvent.VK_A) {
+                        turnLeft();
+                }
+        }
+        public void keyReleased (KeyEvent event) {
+                ;
+        }
 }

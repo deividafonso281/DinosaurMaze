@@ -9,16 +9,15 @@ public class DesenhaTabuleiro {
 	public static void main (String[] args) {
 		CardLayout cl = new CardLayout();
 		JPanel panelCont = new JPanel();
-		Tabuleiro panel = new Tabuleiro();
 		Login login = new Login();
 		Menu menu = new Menu();
 		LeaderBoard leaderBoard = new LeaderBoard();
+		Tabuleiro panel = new Tabuleiro(panelCont,cl,login,leaderBoard,menu);
 		JFrame application = new JFrame("Dinosaur Maze");
 
 		panelCont.setLayout(cl);
 		menu.setReferences(panelCont, cl, panel);
 		login.setReferences(panelCont,cl);
-		panel.setReferences(panelCont,cl,login,leaderBoard,menu);
 		leaderBoard.setReferences(panelCont,cl,menu);
 		panelCont.add(menu, "1");
 		panelCont.add(panel, "2");

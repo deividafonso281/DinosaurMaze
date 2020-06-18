@@ -1,4 +1,4 @@
 import java.math.*;
 public interface IScore {
-	public BigInteger increment();
+	public void increment();
 }
