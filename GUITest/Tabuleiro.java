@@ -32,12 +32,11 @@ public class Tabuleiro extends JPanel {
 	private Random aleatorio = new Random();
 	private int count = 0;			
 	private String textScore;
-
+	private Teclado teclado;
+	
 	public Tabuleiro(JPanel panelCont, CardLayout cardLayout, Login login, LeaderBoard leaderBoard, Menu menu) {
 		setReferences(panelCont, cardLayout, login, leaderBoard, menu);
-		setFocusable(true);
 		createMap();
-		addKeyListener(max);
 		add(scoreBoard);
 	}
 	
@@ -86,6 +85,8 @@ public class Tabuleiro extends JPanel {
 			met[i] = new Meteor(2,2+i);
 		}
 		max = new Dinosaur(9,9);
+		teclado = new Teclado(max);
+		addKeyListener(teclado);
 		pontuation = new Score(0,login.getUsername());
 		textScore = String.format("Score:"+pontuation.getPontuation().toString());
 		scoreBoard.setText(textScore);
@@ -191,7 +192,6 @@ public class Tabuleiro extends JPanel {
 			menu.startTimer();
 			cl.show(panelCont,"1");
 			createMap();
-			addKeyListener(max);
 		}
 	}
 	

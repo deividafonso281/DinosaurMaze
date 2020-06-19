@@ -4,40 +4,26 @@ import javax.imageio.ImageIO;
 import java.io.File;
 import java.io.IOException;
 import java.awt.image.BufferedImage;
-import java.awt.event.KeyListener;
-import java.awt.event.KeyEvent;
 
-public class Dinosaur extends PMovimento implements KeyListener{
-
-	private BufferedImage max_cima_dir;
-        private BufferedImage max_baixo_dir;
-        private BufferedImage max_cima_esq;
-        private BufferedImage max_baixo_esq;
+public class Dinosaur extends PMovimento {
+	
 	private BufferedImage img;
+	private String src;
+	private String direction;
+	private int counter;
 	
 	public Dinosaur (int i, int j) {
 	 	super(i,j);
+		direction = "direita";
+		counter = 1;
 		setImages();
 	}
 	
 	private void setImages() {
 		try {
-                        max_cima_dir = ImageIO.read(new File("max1_direita.png"));
-                } catch (IOException e) {
-                }
-		try {
-                        max_baixo_dir = ImageIO.read(new File("Max2_direita.png"));
-                } catch (IOException e) {
-                }
-		try {
-                        max_cima_esq = ImageIO.read(new File("Max1_esquerda.png"));
-                } catch (IOException e) {
-                }
-		try {
-                        max_baixo_esq = ImageIO.read(new File("Max2_esquerda.png"));
-                } catch (IOException e) {
-                }
-		img = max_baixo_esq;
+                        img = ImageIO.read(new File("max"+counter+"_"+direction+".png"));
+                } catch (IOException exception) {
+		}
 	
 	}
 	
@@ -47,14 +33,30 @@ public class Dinosaur extends PMovimento implements KeyListener{
 	
 	public void move() {
 		super.move();
+                counter = (counter)%2 + 1;
+		setImages();
 	}
 	
 	public void turnRight() {
 		super.turnRight();
+		if (dirx==1&&diry==0) {
+			direction = "direita";
+		}
+		else if (dirx==-1&&diry==0) {
+			direction = "esquerda";
+		}
+		setImages();
 	}
 
 	public void turnLeft() {
 		super.turnLeft();
+		if (dirx==-1&&diry==0) {
+			direction = "esquerda";
+		}
+		else if (dirx==1&&diry==0) {
+			direction = "direita";
+		}
+		setImages();
 	}
 	
 	public int[] getNext() {
@@ -72,30 +74,4 @@ public class Dinosaur extends PMovimento implements KeyListener{
 	public int[] getRight() {
 		return super.getRight();
 	}
-
-	public void keyPressed(KeyEvent event) {
-                if (event.getKeyCode()==39) {
-                        turnRight();
-                }
-                else if (event.getKeyCode()==37) {
-                        turnLeft();
-                }
-                else if (event.getKeyCode()== KeyEvent.VK_D) {
-                        turnRight();
-                }
-                else if (event.getKeyCode()== KeyEvent.VK_A) {
-                        turnLeft();
-                }
-        }
-        public void keyTyped (KeyEvent event) {
-                if (event.getKeyCode()== KeyEvent.VK_D) {
-                        turnRight();
-                }
-                else if (event.getKeyCode()== KeyEvent.VK_A) {
-                        turnLeft();
-                }
-        }
-        public void keyReleased (KeyEvent event) {
-                ;
-        }
 }
