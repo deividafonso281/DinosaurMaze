@@ -1,5 +1,6 @@
 public interface ITabuleiro {
-	public void startGame();
-	public void endGame();
+	public void createMap();
+	public void killMax();
+	public void startTimer();
 	public void doOneLoop();
 }

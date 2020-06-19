@@ -6,9 +6,11 @@ import java.awt.image.BufferedImage;
 
 public class Tree extends Cenario {
 
+		public char surpresa; //toda arvore tem tipo a 
         public Tree (int i, int j) {
-                 super(i,j,true,true);
-		 setSrc("arvred.png");
+        	super(i,j,true,true);
+        	surpresa = 'a';
+        	setSrc("arvred.png");
         }
 
         public void draw (Graphics g) {
@@ -34,4 +36,9 @@ public class Tree extends Cenario {
 	public void setSrc(String src) {
 		super.setSrc(src);
 	}
+	
+	public char getSurpresa() {
+		return surpresa;
+	}
 }
+

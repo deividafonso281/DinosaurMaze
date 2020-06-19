@@ -33,6 +33,7 @@ public class Tabuleiro extends JPanel {
 	private int count = 0;			
 	private String textScore;
 	private Teclado teclado;
+	private int machado = 0; //ver se e melhor deixar aqui ou como atributo do dinossauro
 	
 	public Tabuleiro(JPanel panelCont, CardLayout cardLayout, Login login, LeaderBoard leaderBoard, Menu menu) {
 		setReferences(panelCont, cardLayout, login, leaderBoard, menu);
@@ -84,6 +85,19 @@ public class Tabuleiro extends JPanel {
 		for (int i=0;i<5;i++) {
 			met[i] = new Meteor(2,2+i);
 		}
+		
+		//Arbustos
+		Obstacles[4][17] = new Arbusto(4, 17);
+		Obstacles[4][4] = new Arbusto(4, 4);
+		Obstacles[4][13] = new Arbusto(4, 13);
+		Obstacles[11][4] = new Arbusto(11, 4);
+		Obstacles[10][4] = new Arbusto(10, 4);
+		Obstacles[17][2] = new Arbusto(17, 2);
+		Obstacles[17][17] = new Arbusto(17, 17);
+		Obstacles[17][8] = new Arbusto(17, 8);
+		Obstacles[10][17] = new Arbusto(10, 17);
+		Obstacles[11][17] = new Arbusto(11, 17);
+		
 		max = new Dinosaur(9,9);
 		teclado = new Teclado(max);
 		addKeyListener(teclado);
@@ -117,7 +131,28 @@ public class Tabuleiro extends JPanel {
 
 	private void update() {
 		int[] checkMax = max.getNext();
-		if (!Obstacles[checkMax[0]][checkMax[1]].getObstacle()) {
+		if (Obstacles[checkMax[0]][checkMax[1]].getSurpresa() == 'b') { 
+			//caso de buraco debaixo do arbusto
+			//max fica parado por pelo menos uma rodada
+		}
+		else if(Obstacles[checkMax[0]][checkMax[1]].getSurpresa() == 'c') {
+			//caso de capacete vai mais rapido
+			max.move();
+			max.move();
+		}
+		else if (Obstacles[checkMax[0]][checkMax[1]].getSurpresa() == 'm') {
+			machado++;
+		}
+		else if (Obstacles[checkMax[0]][checkMax[1]].getSurpresa() == 'v') {
+			//se e um arbusto e ta vazio
+			max.move();
+		}
+		else if(machado != 0 && (Obstacles[checkMax[0]][checkMax[1]].getObstacle())) {
+			machado--;
+			max.move();
+		}
+		else if (!Obstacles[checkMax[0]][checkMax[1]].getObstacle()) {
+			//se nao tiver machados nao pode passar por cima das arvores 
 			max.move();
 		}
 		if (count==0) {

@@ -5,13 +5,13 @@ import java.io.IOException;
 import java.awt.image.BufferedImage;
 
 public class Cenario implements ICenario {
-
 	public int posx;
         public int posy;
         public boolean isObstacle;
         public boolean isVisible;
 	public BufferedImage img = null;
 	public String src;
+	private char surpresa;
 
         public Cenario (int i, int j, boolean ob, boolean vis) {
                  posx = i;
@@ -49,4 +49,7 @@ public class Cenario implements ICenario {
                         g.drawImage(img, (posx-1)*36,80+(posy-1)*36,null);
                 }
         }
+	public char getSurpresa() {
+		return surpresa;
+	}
 }

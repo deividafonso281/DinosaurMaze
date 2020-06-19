@@ -43,3 +43,4 @@ public class ScoreList implements Serializable {
 		return -1;
 	}
 }
+
