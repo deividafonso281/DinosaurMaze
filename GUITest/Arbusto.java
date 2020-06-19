@@ -46,5 +46,8 @@ public class Arbusto extends Cenario {
 	public char getSurpresa() {
 		return surpresa;
 	}
-}
 
+	public void surpresaAleatoria() {
+		surpresa = whatObject();
+	}
+}

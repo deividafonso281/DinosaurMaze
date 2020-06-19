@@ -23,6 +23,7 @@ public class Tabuleiro extends JPanel {
 	private Menu menu;
 	private LeaderBoard leaderBoard;
 	private JLabel scoreBoard = new JLabel();
+	private JLabel effect = new JLabel();
 	private Score pontuation;
 	private Timer timer = new Timer(100,(ActionEvent event)->doOneLoop());
 	private Dinosaur max;
@@ -33,12 +34,13 @@ public class Tabuleiro extends JPanel {
 	private int count = 0;			
 	private String textScore;
 	private Teclado teclado;
-	private int machado = 0; //ver se e melhor deixar aqui ou como atributo do dinossauro
+	private int machado; //ver se e melhor deixar aqui ou como atributo do dinossauro
 	
 	public Tabuleiro(JPanel panelCont, CardLayout cardLayout, Login login, LeaderBoard leaderBoard, Menu menu) {
 		setReferences(panelCont, cardLayout, login, leaderBoard, menu);
 		createMap();
 		add(scoreBoard);
+		add(effect);
 	}
 	
 
@@ -87,23 +89,25 @@ public class Tabuleiro extends JPanel {
 		}
 		
 		//Arbustos
-		Obstacles[4][17] = new Arbusto(4, 17);
-		Obstacles[4][4] = new Arbusto(4, 4);
-		Obstacles[4][13] = new Arbusto(4, 13);
-		Obstacles[11][4] = new Arbusto(11, 4);
-		Obstacles[10][4] = new Arbusto(10, 4);
-		Obstacles[17][2] = new Arbusto(17, 2);
-		Obstacles[17][17] = new Arbusto(17, 17);
-		Obstacles[17][8] = new Arbusto(17, 8);
-		Obstacles[10][17] = new Arbusto(10, 17);
-		Obstacles[11][17] = new Arbusto(11, 17);
+		Obstacles[3][16] = new Arbusto(4, 17);
+		Obstacles[3][3] = new Arbusto(4, 4);
+		Obstacles[3][12] = new Arbusto(4, 13);
+		Obstacles[10][3] = new Arbusto(11, 4);
+		Obstacles[9][3] = new Arbusto(10, 4);
+		Obstacles[16][1] = new Arbusto(17, 2);
+		Obstacles[16][16] = new Arbusto(17, 17);
+		Obstacles[16][7] = new Arbusto(17, 8);
+		Obstacles[9][16] = new Arbusto(10, 17);
+		Obstacles[10][16] = new Arbusto(11, 17);
 		
 		max = new Dinosaur(9,9);
 		teclado = new Teclado(max);
 		addKeyListener(teclado);
 		pontuation = new Score(0,login.getUsername());
+		machado = 0;
 		textScore = String.format("Score:"+pontuation.getPontuation().toString());
 		scoreBoard.setText(textScore);
+		effect.setText("No effect");
 	}
 
 	public void paintComponent (Graphics g) {
@@ -118,9 +122,9 @@ public class Tabuleiro extends JPanel {
 		}
 		for (int i=0;i<20;i++) {
 			for (int j=0;j<20;j++) {
-				if (Obstacles[i][j].getVisible()==true && ((Obstacles[i][j] instanceof Tree)||(Obstacles[i][j] instanceof Arbusto))) {
+				//if (Obstacles[i][j].getVisible()==true && ((Obstacles[i][j] instanceof Tree)||(Obstacles[i][j] instanceof Arbusto))) {
 					Obstacles[i][j].draw(g);
-				}
+				//}
 			}
 		}
 		max.draw(g);
@@ -134,18 +138,22 @@ public class Tabuleiro extends JPanel {
 		if (Obstacles[checkMax[0]][checkMax[1]].getSurpresa() == 'b') { 
 			//caso de buraco debaixo do arbusto
 			//max fica parado por pelo menos uma rodada
+			effect.setText("Buraco");
 		}
 		else if(Obstacles[checkMax[0]][checkMax[1]].getSurpresa() == 'c') {
 			//caso de capacete vai mais rapido
 			max.move();
 			max.move();
+			effect.setText("Capacete");
 		}
 		else if (Obstacles[checkMax[0]][checkMax[1]].getSurpresa() == 'm') {
 			machado++;
+			effect.setText(String.format("machado"));
 		}
 		else if (Obstacles[checkMax[0]][checkMax[1]].getSurpresa() == 'v') {
 			//se e um arbusto e ta vazio
 			max.move();
+			effect.setText("No effect");
 		}
 		else if(machado != 0 && (Obstacles[checkMax[0]][checkMax[1]].getObstacle())) {
 			machado--;
