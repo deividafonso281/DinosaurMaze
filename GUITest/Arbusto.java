@@ -7,21 +7,15 @@ import java.awt.image.BufferedImage;
 
 public class Arbusto extends Cenario {
 	
-	private char surpresa; //b =  buraco, v = vazio, m = machado, c = corre mais rapido
-	
+	private int contador;
+
 	public Arbusto (int i, int j) {
-		super(i,j,false,true);
-		surpresa = whatObject();
+		super(i,j,true);
+		contador = 0;
 		setSrc("novo_arbusto.png");
 	}
 	public void draw (Graphics g) {
     	super.draw(g);
-    }
-    public void setObstacle (boolean obs) {
-    	super.setObstacle(obs);
-    }
-    public boolean getObstacle() {
-        return super.getObstacle();
     }
 	public void setVisible(boolean vis) {
 		super.setVisible(vis);
@@ -33,21 +27,33 @@ public class Arbusto extends Cenario {
 		super.setSrc(src);
 	}
 	public char whatObject() {
-		Random random = new Random();
-		int num = random.nextInt(9);
-		if (num % 2 == 0) //0 2 4 6 8 buracos
-			return 'b';
-		if (num == 1) //capacete
-			return 'c';
-		if (num == 3 || num == 5) //machadinho 
-			return 'm';
-		return 'v'; //se o numero for 7 ou 9retorna vazio
-	}
-	public char getSurpresa() {
-		return surpresa;
+		if (isVisible== true) {
+			Random random = new Random();
+			int num = random.nextInt(9);
+			setVisible(false);
+			if (num % 2 == 0) //0 2 4 6 8 buracos
+				return 'b'; //buraco
+			if (num == 1) //capacete
+				return 'c'; //capacete
+			if (num == 3 || num == 5) //machadinho 
+				return 'm'; //machadinho
+			return 'v'; //se o numero for 7 ou 9retorna vazio
+		}
+		else {
+			return 'n';
+		}
 	}
 
-	public void surpresaAleatoria() {
-		surpresa = whatObject();
+	public void check() {
+		if (isVisible== false) {
+			if (contador<19) {
+				contador++;
+				System.out.println(contador);
+			}
+			else {
+				setVisible(true);
+                		contador = 0;
+			}
+		}
 	}
 }

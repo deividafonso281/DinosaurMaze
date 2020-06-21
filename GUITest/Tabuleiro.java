@@ -51,7 +51,7 @@ public class Tabuleiro extends JPanel {
 	public  void createMap() {
 		for (int i=0;i<20;i++) {
                 	for (int j=0;j<20;j++) {
-                        	Obstacles[i][j] = new Cenario(i+1,j+1,false,false);
+                        	Obstacles[i][j] = new Cenario(i+1,j+1,false);
                 	}
         	}
 		for (int i=0;i<20;i++) {
@@ -122,9 +122,7 @@ public class Tabuleiro extends JPanel {
 		}
 		for (int i=0;i<20;i++) {
 			for (int j=0;j<20;j++) {
-				//if (Obstacles[i][j].getVisible()==true && ((Obstacles[i][j] instanceof Tree)||(Obstacles[i][j] instanceof Arbusto))) {
-					Obstacles[i][j].draw(g);
-				//}
+				Obstacles[i][j].draw(g);
 			}
 		}
 		max.draw(g);
@@ -135,41 +133,22 @@ public class Tabuleiro extends JPanel {
 
 	private void update() {
 		int[] checkMax = max.getNext();
-		if (Obstacles[checkMax[0]][checkMax[1]].getSurpresa() == 'b') { 
-			//caso de buraco debaixo do arbusto
-			//max fica parado por pelo menos uma rodada
-			effect.setText("Buraco");
-		}
-		else if(Obstacles[checkMax[0]][checkMax[1]].getSurpresa() == 'c') {
-			//caso de capacete vai mais rapido
-			max.move();
-			max.move();
-			effect.setText("Capacete");
-		}
-		else if (Obstacles[checkMax[0]][checkMax[1]].getSurpresa() == 'm') {
-			machado++;
-			effect.setText(String.format("machado"));
-		}
-		else if (Obstacles[checkMax[0]][checkMax[1]].getSurpresa() == 'v') {
-			//se e um arbusto e ta vazio
-			max.move();
-			effect.setText("No effect");
-		}
-		else if(machado != 0 && (Obstacles[checkMax[0]][checkMax[1]].getObstacle())) {
-			machado--;
-			max.move();
-		}
-		else if (!Obstacles[checkMax[0]][checkMax[1]].getObstacle()) {
-			//se nao tiver machados nao pode passar por cima das arvores 
-			max.move();
+		String bonus = max.interact(Obstacles[checkMax[0]][checkMax[1]].whatObject());
+		effect.setText(bonus);
+		for (int i=0;i<20;i++) {
+			for (int j=0;j<20;j++) {
+				if (Obstacles[i][j] instanceof Arbusto) {
+					((Arbusto) Obstacles[i][j]).check();
+				}
+			}
 		}
 		if (count==0) {
 			for (int i=0;i<5;i++) {
 				int[] checkMeteor = met[i].getNext();
-				if (!Obstacles[checkMeteor[0]][checkMeteor[1]].getObstacle()) {
+				if (Obstacles[checkMeteor[0]][checkMeteor[1]].whatObject()!='a') {
 					int[] right = met[i].getRight();
                         		int[] left = met[i].getLeft();
-					if(!Obstacles[right[0]][right[1]].getObstacle()&&!Obstacles[left[0]][left[1]].getObstacle()) {
+					if(Obstacles[right[0]][right[1]].whatObject()!='a'&&Obstacles[left[0]][left[1]].whatObject()!='a') {
                                 		int choice = aleatorio.nextInt(10) + 1;
                                 		if (choice == 1) {
                                         		met[i].turnRight();
@@ -178,13 +157,13 @@ public class Tabuleiro extends JPanel {
                                         		met[i].turnLeft();
                                 		}
                         		}
-                        		else if (!Obstacles[right[0]][right[1]].getObstacle()&&Obstacles[left[0]][left[1]].getObstacle()) {
+                        		else if (Obstacles[right[0]][right[1]].whatObject()!='a'&&Obstacles[left[0]][left[1]].whatObject()=='a') {
                                 		int choice = aleatorio.nextInt(9) + 1;
                                 		if (choice == 1) {
 							met[i].turnRight();
 						}
                         		}
-                        		else if (Obstacles[right[0]][right[1]].getObstacle()&&!Obstacles[left[0]][left[1]].getObstacle()) {
+                        		else if (Obstacles[right[0]][right[1]].whatObject()=='a'&&Obstacles[left[0]][left[1]].whatObject()!='a') {
                                 		int choice = aleatorio.nextInt(9) + 1;
                                 		if (choice == 1) {
 							met[i].turnLeft();
@@ -195,7 +174,7 @@ public class Tabuleiro extends JPanel {
 				else {
 					int[] right = met[i].getRight();
 					int[] left = met[i].getLeft();
-					if(!Obstacles[right[0]][right[1]].getObstacle()&&!Obstacles[left[0]][left[1]].getObstacle()) {
+					if(Obstacles[right[0]][right[1]].whatObject()!='a'&&Obstacles[left[0]][left[1]].whatObject()!='a') {
 						int choice = aleatorio.nextInt(2) + 1;
 						if (choice == 1) {
 							met[i].turnRight();
@@ -204,10 +183,10 @@ public class Tabuleiro extends JPanel {
 							met[i].turnLeft();
 						}
 					}
-					else if (!Obstacles[right[0]][right[1]].getObstacle()&&Obstacles[left[0]][left[1]].getObstacle()) {
+					else if (Obstacles[right[0]][right[1]].whatObject()!='a'&&Obstacles[left[0]][left[1]].whatObject()=='a') {
                                 		met[i].turnRight();
                         		}
-					else if (Obstacles[right[0]][right[1]].getObstacle()&&!Obstacles[left[0]][left[1]].getObstacle()) {
+					else if (Obstacles[right[0]][right[1]].whatObject()=='a'&&Obstacles[left[0]][left[1]].whatObject()!='a') {
                                 		met[i].turnLeft();
                         		}
 				}

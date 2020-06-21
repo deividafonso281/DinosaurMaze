@@ -11,11 +11,15 @@ public class Dinosaur extends PMovimento {
 	private String src;
 	private String direction;
 	private int counter;
+	private int machado;
+	private String bonus;
 	
 	public Dinosaur (int i, int j) {
 	 	super(i,j);
 		direction = "direita";
 		counter = 1;
+		machado = 0;
+		bonus = "";
 		setImages();
 	}
 	
@@ -74,4 +78,39 @@ public class Dinosaur extends PMovimento {
 	public int[] getRight() {
 		return super.getRight();
 	}
+
+	public String interact(char effect) {
+		if (effect == 'b') {
+                        //caso de buraco debaixo do arbusto
+                        //max fica parado por pelo menos uma rodada
+			bonus = "Buraco";
+                }
+                else if(effect == 'c') {
+                        //caso de capacete vai mais rapido
+                        move();
+                        move();
+			bonus = "Capacete";
+                }
+                else if (effect == 'm') {
+                        machado++;
+			bonus = "Machado";
+                }
+                else if (effect == 'v') {
+                        //se e um arbusto e ta vazio
+                        move();
+			bonus = "";
+                }
+                else if(machado != 0 && effect=='a') {
+                        machado--;
+                        move();
+                }
+                else if (machado == 0 && effect=='a') {
+                        ;
+		}
+		else {
+			//se nao tiver machados nao pode passar por cima das arvores
+                        move();
+		}
+		return bonus;
+	} 
 }

@@ -11,21 +11,11 @@ public class Cenario implements ICenario {
         public boolean isVisible;
 	public BufferedImage img = null;
 	public String src;
-	private char surpresa;
 
-        public Cenario (int i, int j, boolean ob, boolean vis) {
+        public Cenario (int i, int j, boolean vis) {
                  posx = i;
                  posy = j;
-                 isObstacle = ob;
                  isVisible = vis;
-        }
-
-        public void setObstacle (boolean obs) {
-                isObstacle = obs;
-        }
-
-        public boolean getObstacle() {
-                return isObstacle;
         }
 
         public void setVisible(boolean vis) {
@@ -49,7 +39,7 @@ public class Cenario implements ICenario {
                         g.drawImage(img, (posx-1)*36,80+(posy-1)*36,null);
                 }
         }
-	public char getSurpresa() {
-		return surpresa;
+	public char whatObject() {
+		return 'n';
 	}
 }
