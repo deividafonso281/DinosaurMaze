@@ -6,29 +6,28 @@ import java.awt.image.BufferedImage;
 
 public class Tree extends Cenario {
 
-        public Tree (int i, int j) {
-        	super(i,j,true);
-        	setSrc("arvred.png");
-        }
-
-        public void draw (Graphics g) {
-		super.draw(g);
+	public Tree (int i, int j) {
+		super(i,j,true);
+		setSrc("arvred.png");
 	}
 
-	public void setVisible(boolean vis) {
-		super.setVisible(vis);
+	public void desenha (Graphics g) {
+		super.desenha(g);
 	}
 
-	public boolean getVisible() {
-		return super.getVisible();
+	public void setVisivel(boolean vis) {
+		super.setVisivel(vis);
+	}
+
+	public boolean getVisivel() {
+		return super.getVisivel();
 	}
 
 	public void setSrc(String src) {
 		super.setSrc(src);
 	}
 	
-	public char whatObject() {
+	public char qualObjeto() {
 		return 'a'; //toda arvore tem tipo a
 	}
 }
-

@@ -17,223 +17,225 @@ import java.awt.CardLayout;
 public class Tabuleiro extends JPanel {
 	
 	
-	private JPanel panelCont;
+	private JPanel painel;
 	private CardLayout cl;
 	private Login login;
 	private Menu menu;
-	private LeaderBoard leaderBoard;
-	private JLabel scoreBoard = new JLabel();
-	private JLabel effect = new JLabel();
-	private Score pontuation;
-	private Timer timer = new Timer(100,(ActionEvent event)->doOneLoop());
+	private LeaderBoard pontuacoesAltas;
+	private JLabel tabelaPontuacao = new JLabel();
+	private JLabel efeito = new JLabel();
+	private Score pontuacao;
+	private Timer timer = new Timer(100,(ActionEvent event)->daUmLoop());
 	private Dinosaur max;
 	private Meteor[] met = new Meteor[5];
 	private Color fundo = new Color(217,200,158);
-	private Cenario[][] Obstacles = new Cenario[20][20];
+	private Cenario[][] Obstaculos = new Cenario[20][20];
 	private Random aleatorio = new Random();
-	private int count = 0;			
-	private String textScore;
+	private int contador = 0;			
+	private String pontTexto;
 	private Teclado teclado;
-	private int machado; //ver se e melhor deixar aqui ou como atributo do dinossauro
+	private int machado;
 	
 	public Tabuleiro(JPanel panelCont, CardLayout cardLayout, Login login, LeaderBoard leaderBoard, Menu menu) {
-		setReferences(panelCont, cardLayout, login, leaderBoard, menu);
-		createMap();
-		add(scoreBoard);
-		add(effect);
+		setReferencias(panelCont, cardLayout, login, leaderBoard, menu);
+		criaMapa();
+		add(tabelaPontuacao);
+		add(efeito);
 	}
 	
 
-	public void startTimer() {
+	public void iniciaTempo() {
 		this.timer.start();
 	}
 	
-	public  void createMap() {
-		for (int i=0;i<20;i++) {
-                	for (int j=0;j<20;j++) {
-                        	Obstacles[i][j] = new Cenario(i+1,j+1,false);
-                	}
-        	}
-		for (int i=0;i<20;i++) {
-			if (i!=9&&i!=10) {
-				Obstacles[i][0] = new Tree(i+1,1);
-				Obstacles[0][i] = new Tree(1,i+1);
-				Obstacles[19][i] = new Tree(20,i+1);
-				Obstacles[i][19] = new Tree(i+1,20);
+	public  void criaMapa() {
+		for (int i = 0; i < 20; i++) {
+			for (int j = 0; j < 20; j++) {
+				Obstaculos[i][j] = new Cenario(i+1,j+1,false);
 			}
 		}
-		for (int i=8;i<12;i++) {
-			Obstacles[3][i] = new Tree(4,i+1);
-			Obstacles[16][i] = new Tree(17,i+1);
-		}
-		for (int i=6;i<14;i++) {
-			if (i!=9&&i!=10) {
-				Obstacles[6][i] = new Tree(7,i+1);
-				Obstacles[13][i] = new Tree(14,i+1);
+		for (int i = 0; i < 20; i++) {
+			if (i != 9 && i != 10) {
+				Obstaculos[i][0] = new Tree(i+1,1);
+				Obstaculos[0][i] = new Tree(1,i+1);
+				Obstaculos[19][i] = new Tree(20,i+1);
+				Obstaculos[i][19] = new Tree(i+1,20);
 			}
 		}
-		for (int i=7;i<13;i++) {
-			if (i!=9&&i!=10) {
-				Obstacles[i][6] = new Tree(i+1,7);
-				Obstacles[i][13] = new Tree(i+1,14);
+		for (int i = 8; i < 12; i++) {
+			Obstaculos[3][i] = new Tree(4,i+1);
+			Obstaculos[16][i] = new Tree(17,i+1);
+		}
+		for (int i = 6; i < 14; i++) {
+			if (i != 9 && i != 10) {
+				Obstaculos[6][i] = new Tree(7,i+1);
+				Obstaculos[13][i] = new Tree(14,i+1);
 			}
 		}
+		for (int i = 7; i < 13; i++) {
+			if (i != 9 && i != 10) {
+				Obstaculos[i][6] = new Tree(i+1,7);
+				Obstaculos[i][13] = new Tree(i+1,14);
+			}
+		}
+		
 		// Cruz 
-		Obstacles[16][3] = new Tree(17,4);
-		Obstacles[16][2] = new Tree(17,3);
-		Obstacles[16][4] = new Tree(17,5);
-		Obstacles[15][3] = new Tree(16,4);
-		Obstacles[17][3] = new Tree(18,4);
-		for (int i=0;i<5;i++) {
-			met[i] = new Meteor(2,2+i);
+		Obstaculos[16][3] = new Tree(17,4);
+		Obstaculos[16][2] = new Tree(17,3);
+		Obstaculos[16][4] = new Tree(17,5);
+		Obstaculos[15][3] = new Tree(16,4);
+		Obstaculos[17][3] = new Tree(18,4);
+		
+		for (int i = 0; i < 5; i++) {
+			met[i] = new Meteor(2, 2+i);
 		}
 		
 		//Arbustos
-		Obstacles[3][16] = new Arbusto(4, 17);
-		Obstacles[3][3] = new Arbusto(4, 4);
-		Obstacles[3][12] = new Arbusto(4, 13);
-		Obstacles[10][3] = new Arbusto(11, 4);
-		Obstacles[9][3] = new Arbusto(10, 4);
-		Obstacles[16][1] = new Arbusto(17, 2);
-		Obstacles[16][16] = new Arbusto(17, 17);
-		Obstacles[16][7] = new Arbusto(17, 8);
-		Obstacles[9][16] = new Arbusto(10, 17);
-		Obstacles[10][16] = new Arbusto(11, 17);
+		Obstaculos[3][16] = new Arbusto(4, 17);
+		Obstaculos[3][3] = new Arbusto(4, 4);
+		Obstaculos[3][12] = new Arbusto(4, 13);
+		Obstaculos[10][3] = new Arbusto(11, 4);
+		Obstaculos[9][3] = new Arbusto(10, 4);
+		Obstaculos[16][1] = new Arbusto(17, 2);
+		Obstaculos[16][16] = new Arbusto(17, 17);
+		Obstaculos[16][7] = new Arbusto(17, 8);
+		Obstaculos[9][16] = new Arbusto(10, 17);
+		Obstaculos[10][16] = new Arbusto(11, 17);
 		
 		max = new Dinosaur(9,9);
 		teclado = new Teclado(max);
 		addKeyListener(teclado);
-		pontuation = new Score(0,login.getUsername());
+		pontuacao = new Score(0, login.getUsuario());
 		machado = 0;
-		textScore = String.format("Score:"+pontuation.getPontuation().toString());
-		scoreBoard.setText(textScore);
-		effect.setText("No effect");
+		pontTexto = String.format("Pontuacao:" + pontuacao.getPontuacao().toString());
+		tabelaPontuacao.setText(pontTexto);
+		efeito.setText("Sem efeito");
 	}
 
 	public void paintComponent (Graphics g) {
 		setBackground(fundo);
 		super.paintComponent(g);
-		int width = 720;
-		int height = 720;
-		int pace = 36;
-		for (int i=0;i<=20;i++) {
-			g.drawLine(0,80+i*pace,width,80+i*pace);
-			g.drawLine(i*pace,80,i*pace,height+80);
+		int largura = 720;
+		int altura = 720;
+		int ritmo = 36;
+		for (int i = 0; i <= 20; i++) {
+			g.drawLine(0,80 + i * ritmo, largura, 80 + i * ritmo);
+			g.drawLine(i * ritmo, 80, i * ritmo, altura + 80);
 		}
-		for (int i=0;i<20;i++) {
-			for (int j=0;j<20;j++) {
-				Obstacles[i][j].draw(g);
+		for (int i = 0; i < 20; i++) {
+			for (int j = 0; j < 20; j++) {
+				Obstaculos[i][j].desenha(g);
 			}
 		}
 		max.draw(g);
-		for (int i=0;i<5;i++) {
-			met[i].draw(g);
+		for (int i = 0; i < 5; i++) {
+			met[i].desenha(g);
 		}
 	}
 
-	private void update() {
-		int[] checkMax = max.getNext();
-		String bonus = max.interact(Obstacles[checkMax[0]][checkMax[1]].whatObject());
-		effect.setText(bonus);
-		for (int i=0;i<20;i++) {
-			for (int j=0;j<20;j++) {
-				if (Obstacles[i][j] instanceof Arbusto) {
-					((Arbusto) Obstacles[i][j]).check();
+	private void atualiza() {
+		int[] veMax = max.getProx();
+		String bonus = max.interacao(Obstaculos[veMax[0]][veMax[1]].qualObjeto());
+		efeito.setText(bonus);
+		for (int i = 0; i < 20; i++) {
+			for (int j = 0; j < 20; j++) {
+				if (Obstaculos[i][j] instanceof Arbusto) {
+					((Arbusto) Obstaculos[i][j]).confere();
 				}
 			}
 		}
-		if (count==0) {
-			for (int i=0;i<5;i++) {
-				int[] checkMeteor = met[i].getNext();
-				if (Obstacles[checkMeteor[0]][checkMeteor[1]].whatObject()!='a') {
-					int[] right = met[i].getRight();
-                        		int[] left = met[i].getLeft();
-					if(Obstacles[right[0]][right[1]].whatObject()!='a'&&Obstacles[left[0]][left[1]].whatObject()!='a') {
-                                		int choice = aleatorio.nextInt(10) + 1;
-                                		if (choice == 1) {
-                                        		met[i].turnRight();
+		if (contador == 0) {
+			for (int i = 0; i < 5; i++) {
+				int[] veMeteoro = met[i].getProx();
+				if (Obstaculos[veMeteoro[0]][veMeteoro[1]].qualObjeto() != 'a') {
+					int[] direita = met[i].getDireita();
+                    int[] esquerda = met[i].getEsquerda();
+					if(Obstaculos[direita[0]][direita[1]].qualObjeto() != 'a' && Obstaculos[esquerda[0]][esquerda[1]].qualObjeto() != 'a') {
+                                		int escolha = aleatorio.nextInt(10) + 1;
+                                		if (escolha == 1) {
+                                        		met[i].viraDireita();
                                 		}
-                                		else if (choice == 2){
-                                        		met[i].turnLeft();
+                                		else if (escolha == 2){
+                                        		met[i].viraEsquerda();
                                 		}
-                        		}
-                        		else if (Obstacles[right[0]][right[1]].whatObject()!='a'&&Obstacles[left[0]][left[1]].whatObject()=='a') {
-                                		int choice = aleatorio.nextInt(9) + 1;
-                                		if (choice == 1) {
-							met[i].turnRight();
+                    }
+                    else if (Obstaculos[direita[0]][direita[1]].qualObjeto() != 'a' && Obstaculos[esquerda[0]][esquerda[1]].qualObjeto() == 'a') {
+                    	int escolha = aleatorio.nextInt(9) + 1;
+                    	if (escolha == 1) {
+                    		met[i].viraDireita();
 						}
-                        		}
-                        		else if (Obstacles[right[0]][right[1]].whatObject()=='a'&&Obstacles[left[0]][left[1]].whatObject()!='a') {
-                                		int choice = aleatorio.nextInt(9) + 1;
-                                		if (choice == 1) {
-							met[i].turnLeft();
+                    }
+                    else if (Obstaculos[direita[0]][direita[1]].qualObjeto() == 'a' && Obstaculos[esquerda[0]][esquerda[1]].qualObjeto() != 'a') {
+                    	int escolha = aleatorio.nextInt(9) + 1;
+                    	if (escolha == 1) {
+                    		met[i].viraEsquerda();
 						}
-                        		}
+                    }
 					met[i].move();
 				}
 				else {
-					int[] right = met[i].getRight();
-					int[] left = met[i].getLeft();
-					if(Obstacles[right[0]][right[1]].whatObject()!='a'&&Obstacles[left[0]][left[1]].whatObject()!='a') {
-						int choice = aleatorio.nextInt(2) + 1;
-						if (choice == 1) {
-							met[i].turnRight();
+					int[] direita = met[i].getDireita();
+					int[] esquerda = met[i].getEsquerda();
+					if(Obstaculos[direita[0]][direita[1]].qualObjeto() != 'a' && Obstaculos[esquerda[0]][esquerda[1]].qualObjeto() != 'a') {
+						int escolha = aleatorio.nextInt(2) + 1;
+						if (escolha == 1) {
+							met[i].viraDireita();
 						}
 						else {
-							met[i].turnLeft();
+							met[i].viraEsquerda();
 						}
 					}
-					else if (Obstacles[right[0]][right[1]].whatObject()!='a'&&Obstacles[left[0]][left[1]].whatObject()=='a') {
-                                		met[i].turnRight();
-                        		}
-					else if (Obstacles[right[0]][right[1]].whatObject()=='a'&&Obstacles[left[0]][left[1]].whatObject()!='a') {
-                                		met[i].turnLeft();
-                        		}
+					else if (Obstaculos[direita[0]][direita[1]].qualObjeto() != 'a' && Obstaculos[esquerda[0]][esquerda[1]].qualObjeto() == 'a') {
+						met[i].viraDireita();
+					}
+					else if (Obstaculos[direita[0]][direita[1]].qualObjeto() == 'a' && Obstaculos[esquerda[0]][esquerda[1]].qualObjeto() != 'a') {
+						met[i].viraEsquerda();
+					}
 				}
 			}
 		}
-		count = (count+1)%2;
+		contador = (contador + 1) % 2;
 	}
 	
-	public void killMax() {
-		boolean alive = true;
-		int[] maxpos = new int[2];
-		int[] meteorpos = new int[2];
-		maxpos = max.getAtual();
-		for (int i=0;i<5&&alive;i++) {
-			meteorpos = met[i].getAtual();
-			if (meteorpos[0]==maxpos[0]&&meteorpos[1]==maxpos[1]) {
-				alive = false;
+	public void mataMax() {
+		boolean vivo = true;
+		int[] maxPos = new int[2];
+		int[] meteorPos = new int[2];
+		maxPos = max.getAtual();
+		for (int i = 0; i < 5 && vivo; i++) {
+			meteorPos = met[i].getAtual();
+			if (meteorPos[0] == maxPos[0] && meteorPos[1] == maxPos[1]) {
+				vivo = false;
 			}
 		}
-		if (alive == false) {
+		if (vivo == false) {
 			this.timer.stop();
-			String message = String.format("Max died.\n Your score is: " + pontuation.getPontuation().toString());
-			leaderBoard.addScore(pontuation);
-			int choice = JOptionPane.showConfirmDialog(this,message,"Aviso",JOptionPane.OK_CANCEL_OPTION,JOptionPane.PLAIN_MESSAGE);
+			String mensagem = String.format("Max morreu.\n Sua pontuacao e: " + pontuacao.getPontuacao().toString());
+			pontuacoesAltas.addScore(pontuacao);
+			int escolha = JOptionPane.showConfirmDialog(this, mensagem, "Aviso", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
 			menu.startTimer();
-			cl.show(panelCont,"1");
-			createMap();
+			cl.show(painel,"1");
+			criaMapa();
 		}
 	}
 	
-	public void doOneLoop() {
-		update();
+	public void daUmLoop() {
+		atualiza();
 		repaint();
-		if (count==1) {
-			pontuation.increment();
-			textScore = String.format("Score: " + pontuation.getPontuation().toString());
-			scoreBoard.setText(textScore);
+		if (contador == 1) {
+			pontuacao.incrementa();
+			pontTexto = String.format("Pontos: " + pontuacao.getPontuacao().toString());
+			tabelaPontuacao.setText(pontTexto);
 		}
-		killMax();
+		mataMax();
 	}
 	
-	public void setReferences(JPanel panelCont, CardLayout cardLayout, Login login, LeaderBoard leaderBoard, Menu menu) {
-                this.panelCont = panelCont;
-                this.cl = cardLayout;
+	public void setReferencias(JPanel p, CardLayout c, Login login, LeaderBoard l, Menu menu) {
+		this.painel = p;
+		this.cl = c;
 		this.login = login;
-		this.leaderBoard = leaderBoard;
+		this.pontuacoesAltas = l;
 		this.menu = menu;
-                System.out.println("References setadas Login");
-        }
+		System.out.println("Referencias setadas Login");
+	}
 }

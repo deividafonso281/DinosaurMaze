@@ -1,5 +1,5 @@
 public interface ICenario {
-	public void setVisible(boolean vis);
-	public boolean getVisible();
-	public char whatObject();
+	public void setVisivel(boolean vis);
+	public boolean getVisivel();
+	public char qualObjeto();
 }

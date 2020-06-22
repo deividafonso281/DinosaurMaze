@@ -6,47 +6,47 @@ import java.util.NoSuchElementException;
 
 public class ScoreListWritter {
 
-	private ObjectOutputStream output;
-	private File file = new File("leaderboard.ser");
+	private ObjectOutputStream saida;
+	private File arquivo = new File("leaderboard.ser");
 	
-	public void openFile() {
-		if (!file.exists()) {
+	public void abrirArquivo() {
+		if (!arquivo.exists()) {
 			try {
-				file.createNewFile();
+				arquivo.createNewFile();
 			} catch (IOException ioException) {
 			}
 		}
 		try {
-			output = new ObjectOutputStream(
-			new FileOutputStream(file));
+			saida = new ObjectOutputStream(
+			new FileOutputStream(arquivo));
 		} catch (IOException ioException) {
-			System.err.println("Error opening file.");
+			System.err.println("Erro ao abrir o arquivo.");
 		}
 	}
 	
-	public void writeScoreList(ScoreList scoreList) {
+	public void escreveListaPlacar (ScoreList listaPontos) {
 		try {
-			output.writeObject(scoreList);
+			saida.writeObject(listaPontos);
 		} catch (IOException ioExeception) {
 		}
 		catch (NoSuchElementException elementException) {
 		}
 	}
 	
-	public void closeFile() {
+	public void fechaArquivo() {
 		try {
-			if (output!=null) {
-				output.close();
+			if (saida != null) {
+				saida.close();
 			}
 		}catch(IOException ioException) {
 		}
 	}
 
-	public void saveScoreList(ScoreList scoreList) {
-		System.out.println("Method called");
-		openFile();
-		writeScoreList(scoreList);
-		closeFile();
+	public void salvaListaPlacar (ScoreList listaPlacar) {
+		System.out.println("Metodo chamado");
+		abrirArquivo();
+		escreveListaPlacar(listaPlacar);
+		fechaArquivo();
 	}
 
 }

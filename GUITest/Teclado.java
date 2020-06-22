@@ -9,36 +9,36 @@ public class Teclado implements KeyListener {
 		this.max = max;
 	}
 	
-	public void keyPressed(KeyEvent event) {
-                if (event.getKeyCode()==39) {
-                        max.turnRight();
-                }
-                else if (event.getKeyCode()==37) {
-                        max.turnLeft();
-                }
-                else if (event.getKeyCode()== KeyEvent.VK_D) {
-                        max.turnRight();
-                }
-                else if (event.getKeyCode()== KeyEvent.VK_A) {
-                        max.turnLeft();
-                }
-        }
-        public void keyTyped (KeyEvent event) {
-                
-		if (event.getKeyCode()==39) {
-                        max.turnRight();
-                }
-                else if (event.getKeyCode()==37) {
-                        max.turnLeft();
-                }
-		else if (event.getKeyCode()== KeyEvent.VK_D) {
-                        max.turnRight();
-                }
-                else if (event.getKeyCode()== KeyEvent.VK_A) {
-                        max.turnLeft();
-                }
-        }
-        public void keyReleased (KeyEvent event) {
-                ;
-        }
+	public void keyPressed (KeyEvent evento) {
+		if (evento.getKeyCode() == 39) {
+			max.viraDireita();
+		}
+		else if (evento.getKeyCode() == 37) {
+			max.viraEsquerda();
+		}
+		else if (evento.getKeyCode()== KeyEvent.VK_D) {
+			max.viraDireita();
+		}
+		else if (evento.getKeyCode()== KeyEvent.VK_A) {
+			max.viraEsquerda();
+		}
+	}
+	public void keyTyped (KeyEvent evento) {
+		
+		if (evento.getKeyCode() == 39) {
+			max.viraDireita();
+		}
+		else if (evento.getKeyCode() == 37) {
+			max.viraEsquerda();
+		}
+		else if (evento.getKeyCode() == KeyEvent.VK_D) {
+			max.viraDireita();
+		}
+		else if (evento.getKeyCode() == KeyEvent.VK_A) {
+			max.viraEsquerda();
+		}
+	}
+	public void keyReleased (KeyEvent event) {
+		;
+    }
 }

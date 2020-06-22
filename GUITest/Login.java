@@ -8,40 +8,40 @@ import java.awt.CardLayout;
 
 public class Login extends JPanel{
 
-	private String userName;
-	private JButton buttonLogin;
-	private JPanel panelCont;
+	private String nomeUsuario;
+	private JButton botaoLogin;
+	private JPanel painel;
 	private CardLayout cl;
-	private JTextField textField;
+	private JTextField campoTexto;
 	
 	public Login() {
 		setLayout(null);
-		buttonLogin = new JButton("Login");
-		buttonLogin.setSize(200,50);
-		buttonLogin.setLocation(260,450);
-		buttonLogin.addActionListener(
+		botaoLogin = new JButton("Login");
+		botaoLogin.setSize(200,50);
+		botaoLogin.setLocation(260,450);
+		botaoLogin.addActionListener(
 			new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					cl.show(panelCont,"1");
-					userName = textField.getText();
-					System.out.println(userName);
+					cl.show(painel,"1");
+					nomeUsuario = campoTexto.getText();
+					System.out.println(nomeUsuario);
 				}	
 			}	
 		);
-		add(buttonLogin);
-		textField = new JTextField("Input your username");
-		textField.setSize(400,50);
-		textField.setLocation(160,350);
-		add(textField);
+		add(botaoLogin);
+		campoTexto = new JTextField("Digite o nome do usuario");
+		campoTexto.setSize(400,50);
+		campoTexto.setLocation(160,350);
+		add(campoTexto);
 	}
 	
-	public void setReferences(JPanel panelCont, CardLayout cardLayout) {
-                this.panelCont = panelCont;
-                this.cl = cardLayout;
-                System.out.println("References setadas login");
-        }
+	public void setReferencias(JPanel p, CardLayout c) {
+		this.painel = p;
+		this.cl = c;
+		System.out.println("References setadas login");
+    }
 	
-	public String getUsername() {
-		return userName;
+	public String getUsuario() {
+		return nomeUsuario;
 	}
 }

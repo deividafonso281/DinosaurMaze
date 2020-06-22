@@ -3,23 +3,23 @@ import java.math.BigInteger;
 
 public class Score implements Serializable, IScore{
 
-	private BigInteger pontuation;
-	private String username;
+	private BigInteger pontuacao;
+	private String usuario;
 		
-	public Score(int points, String username) {
-		this.pontuation = BigInteger.valueOf(points);
-		this.username = username;
+	public Score(int pontos, String usuario) {
+		this.pontuacao = BigInteger.valueOf(pontos);
+		this.usuario = usuario;
 	}
 	
-	public BigInteger getPontuation() {
-		return pontuation;
+	public BigInteger getPontuacao() {
+		return pontuacao;
 	}
 	
-	public String getUsername() {
-		return username;
+	public String getUsuario() {
+		return usuario;
 	}
 
-	public void increment() {
-		this.pontuation = this.pontuation.add(BigInteger.valueOf(1));
+	public void incrementa() {
+		this.pontuacao = this.pontuacao.add(BigInteger.valueOf(1));
 	}
 }

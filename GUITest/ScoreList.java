@@ -2,43 +2,43 @@ import java.io.Serializable;
 
 public class ScoreList implements Serializable {
 
-	public Score[] positions = new Score[15];
+	public Score[] posicoes = new Score[15];
 	public Score aux;
-	public int capacity = 15;
-	public int length = 0;
+	public int capacidade = 15;
+	public int tamanho = 0;
 
-	public void addScore(Score score_new) {
-		int pos = findPos(score_new);
-		if (length==15){
-			if (pos!=-1) {
-				for (int i=pos;i<length;i++) {
-					aux = positions[i];
-					positions[i] = score_new;
-					score_new = aux;
+	public void adicionaPontuacao(Score novo) {
+		int pos = achaPos(novo);
+		if (tamanho == 15){
+			if (pos != -1) {
+				for (int i = pos; i < tamanho; i++) {
+					aux = posicoes[i];
+					posicoes[i] = novo;
+					novo = aux;
 				}
 			}
 		}
 		else {
-			if (pos==-1) {
-				positions[length] = score_new;
-				length++;
+			if (pos == -1) {
+				posicoes[tamanho] = novo;
+				tamanho++;
 			}
 			else {
-				length++;
-				for (int i=pos;i<length;i++) {
-                                	aux = positions[i];
-                                	positions[i] = score_new;
-                                	score_new = aux;
-                        	}
+				tamanho++;
+				for (int i = pos; i < tamanho; i++) {
+					aux = posicoes[i];
+					posicoes[i] = novo;
+					novo = aux;
+				}
 			}
 		}
 	}
 	
-	public int findPos(Score score_new) {
-		for (int i=0;i<length;i++) {
-                                if (score_new.getPontuation().compareTo(positions[i].getPontuation())==1) {
-					return i;
-				}
+	public int achaPos(Score novo) {
+		for (int i = 0; i < tamanho; i++) {
+			if (novo.getPontuacao().compareTo(posicoes[i].getPontuacao()) == 1) {
+				return i;
+			}
 		}
 		return -1;
 	}

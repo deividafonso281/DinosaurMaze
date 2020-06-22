@@ -1,9 +1,9 @@
 public interface IMovable {
 	public void move();
-	public void turnRight();
-	public void turnLeft();
-	public int[] getRight();
-	public int[] getLeft();
+	public void viraDireita();
+	public void viraEsquerda();
+	public int[] getDireita();
+	public int[] getEsquerda();
 	public int[] getAtual();
-	public int[] getNext();
+	public int[] getProx();
 }

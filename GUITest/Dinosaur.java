@@ -8,108 +8,107 @@ import java.awt.image.BufferedImage;
 public class Dinosaur extends PMovimento {
 	
 	private BufferedImage img;
-	private String src;
-	private String direction;
-	private int counter;
+	private String direcao;
+	private int contador;
 	private int machado;
 	private String bonus;
 	
 	public Dinosaur (int i, int j) {
 	 	super(i,j);
-		direction = "direita";
-		counter = 1;
+		direcao = "direita";
+		contador = 1;
 		machado = 0;
 		bonus = "";
-		setImages();
+		setImagens();
 	}
 	
-	private void setImages() {
+	private void setImagens() {
 		try {
-                        img = ImageIO.read(new File("max"+counter+"_"+direction+".png"));
-                } catch (IOException exception) {
+			img = ImageIO.read(new File("max" + contador+"_" + direcao + ".png"));
+		} catch (IOException exception) {
 		}
 	
 	}
 	
 	public void draw (Graphics g) {
-		g.drawImage(img, (posx-1)*36,80+(posy-1)*36, null);
+		g.drawImage(img, (posx - 1) * 36, 80 + (posy - 1) * 36, null);
 	}
 	
 	public void move() {
 		super.move();
-                counter = (counter)%2 + 1;
-		setImages();
+        contador = (contador) % 2 + 1;
+		setImagens();
 	}
 	
-	public void turnRight() {
-		super.turnRight();
-		if (dirx==1&&diry==0) {
-			direction = "direita";
+	public void viraDireita() {
+		super.viraDireita();
+		if (dirx == 1 && diry == 0) {
+			direcao = "direita";
 		}
-		else if (dirx==-1&&diry==0) {
-			direction = "esquerda";
+		else if (dirx == -1 && diry == 0) {
+			direcao = "esquerda";
 		}
-		setImages();
+		setImagens();
 	}
 
-	public void turnLeft() {
-		super.turnLeft();
-		if (dirx==-1&&diry==0) {
-			direction = "esquerda";
+	public void viraEsquerda() {
+		super.viraEsquerda();
+		if (dirx == -1 && diry == 0) {
+			direcao = "esquerda";
 		}
-		else if (dirx==1&&diry==0) {
-			direction = "direita";
+		else if (dirx == 1 && diry == 0) {
+			direcao = "direita";
 		}
-		setImages();
+		setImagens();
 	}
 	
-	public int[] getNext() {
-		return super.getNext();
+	public int[] getProx() {
+		return super.getProx();
 	}
 
 	public int[] getAtual() {
 		return super.getAtual();
 	}
 
-	public int[] getLeft() {
-		return super.getLeft();
+	public int[] getEsquerda() {
+		return super.getEsquerda();
 	}
 	
-	public int[] getRight() {
-		return super.getRight();
+	public int[] getDireita() {
+		return super.getDireita();
 	}
 
-	public String interact(char effect) {
-		if (effect == 'b') {
-                        //caso de buraco debaixo do arbusto
-                        //max fica parado por pelo menos uma rodada
+	public String interacao(char efeito) {
+		if (efeito == 'b') {
+			//caso de buraco debaixo do arbusto
+			//max fica parado por pelo menos uma rodada
 			bonus = "Buraco";
-                }
-                else if(effect == 'c') {
-                        //caso de capacete vai mais rapido
-                        move();
-                        move();
+		}
+		else if(efeito == 'c') {
+			//caso de capacete vai mais rapido
+			move();
+			move();
 			bonus = "Capacete";
-                }
-                else if (effect == 'm') {
-                        machado++;
+		}
+		else if (efeito == 'm') {
+			machado++;
 			bonus = "Machado";
-                }
-                else if (effect == 'v') {
-                        //se e um arbusto e ta vazio
-                        move();
+		}
+		else if (efeito == 'v') {
+			//se e um arbusto e ta vazio
+			move();
 			bonus = "";
-                }
-                else if(machado != 0 && effect=='a') {
-                        machado--;
-                        move();
-                }
-                else if (machado == 0 && effect=='a') {
-                        ;
+		}
+		else if(machado != 0 && efeito =='a') {
+			machado--;
+			move();
+		}
+		else if (machado == 0 && efeito =='a') {
+			;
 		}
 		else {
 			//se nao tiver machados nao pode passar por cima das arvores
-                        move();
+			move();
 		}
 		return bonus;
 	} 

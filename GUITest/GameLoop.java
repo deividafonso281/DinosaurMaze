@@ -3,14 +3,14 @@ import java.awt.event.ActionListener;
 
 public class GameLoop implements ActionListener {
 
-	private Tabuleiro gamePanel;
+	private Tabuleiro painelJogo;
 	
-	public GameLoop (Tabuleiro gamePanel) {
-		this.gamePanel = gamePanel;
+	public GameLoop (Tabuleiro painelJogo) {
+		this.painelJogo = painelJogo;
 	}
 	
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
-		this.gamePanel.doOneLoop();
+		this.painelJogo.daUmLoop();
 	}
 }

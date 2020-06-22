@@ -6,46 +6,46 @@ import java.io.IOException;
 
 public class ScoreListReader {
 
-	private ObjectInputStream input;
-	private File file = new File("leaderboard.ser");
+	private ObjectInputStream entrada;
+	private File arquivo = new File("leaderboard.ser");
 	
-	public void openFile() {
+	public void abreArquivo() {
 			try {
-				input = new ObjectInputStream (
-					new FileInputStream(file));
+				entrada = new ObjectInputStream (
+					new FileInputStream(arquivo));
 			} catch (IOException ioException) {
 			}
 	}
 	
-	public ScoreList readScoreList() {
-		ScoreList scoreList = new ScoreList();
+	public ScoreList leListaPlacar() {
+		ScoreList listaPlacar = new ScoreList();
 		try {
-			scoreList = (ScoreList) input.readObject();
+			listaPlacar = (ScoreList) entrada.readObject();
 		} catch (IOException ioException) {
 			System.err.println("IO");
 		}  catch (ClassNotFoundException classNotFoundException) {
-			System.err.println("Clas Not Found");
+			System.err.println("Classe nao encontrada");
 		} catch (NullPointerException pointerException) {
-			System.err.println("Null Pointer");
+			System.err.println("Ponteiro nulo");
 		}
-		return scoreList;
+		return listaPlacar;
 	}
 	
-	public void closeFile() {
+	public void fechaArquivo() {
 		try {
-			if (input!=null) {
-				input.close();
+			if (entrada != null) {
+				entrada.close();
 			}
 		} catch (IOException ioException) {
 		}
 	}
 
-	public ScoreList getScoreList() {
-		ScoreList scoreList;
-		openFile();
-		scoreList = readScoreList();
-		closeFile();
-		return scoreList;
+	public ScoreList getListaPlacar() {
+		ScoreList listaPlacar;
+		abreArquivo();
+		listaPlacar = leListaPlacar();
+		fechaArquivo();
+		return listaPlacar;
 	}
 	
 	
