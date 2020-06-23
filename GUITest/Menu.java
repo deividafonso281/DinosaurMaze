@@ -35,6 +35,7 @@ public class Menu extends JPanel {
 		botaoJogar.addActionListener(
 			(ActionEvent evento)->{
 					timer.stop();
+					tabuleiro.criaMapa();
 					cl.show(painel, "2");
 					tabuleiro.requestFocus();
 					tabuleiro.iniciaTempo();

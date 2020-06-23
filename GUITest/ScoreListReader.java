@@ -23,10 +23,11 @@ public class ScoreListReader {
 			listaPlacar = (ScoreList) entrada.readObject();
 		} catch (IOException ioException) {
 			System.err.println("IO");
-		}  catch (ClassNotFoundException classNotFoundException) {
-			System.err.println("Classe nao encontrada");
 		} catch (NullPointerException pointerException) {
 			System.err.println("Ponteiro nulo");
+			listaPlacar = new ScoreList();
+		} catch (ClassNotFoundException classNotFoundException) {
+			System.err.println("Classe nao encontrada");
 		}
 		return listaPlacar;
 	}

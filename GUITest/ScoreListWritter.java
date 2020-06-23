@@ -29,8 +29,6 @@ public class ScoreListWritter {
 			saida.writeObject(listaPontos);
 		} catch (IOException ioExeception) {
 		}
-		catch (NoSuchElementException elementException) {
-		}
 	}
 	
 	public void fechaArquivo() {
@@ -43,7 +41,6 @@ public class ScoreListWritter {
 	}
 
 	public void salvaListaPlacar (ScoreList listaPlacar) {
-		System.out.println("Metodo chamado");
 		abrirArquivo();
 		escreveListaPlacar(listaPlacar);
 		fechaArquivo();

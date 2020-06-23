@@ -38,7 +38,6 @@ public class Tabuleiro extends JPanel {
 	
 	public Tabuleiro(JPanel panelCont, CardLayout cardLayout, Login login, LeaderBoard leaderBoard, Menu menu) {
 		setReferencias(panelCont, cardLayout, login, leaderBoard, menu);
-		criaMapa();
 		add(tabelaPontuacao);
 		add(efeito);
 	}
@@ -106,6 +105,7 @@ public class Tabuleiro extends JPanel {
 		teclado = new Teclado(max);
 		addKeyListener(teclado);
 		pontuacao = new Score(0, login.getUsuario());
+		System.out.println(pontuacao.getUsuario());
 		machado = 0;
 		pontTexto = String.format("Pontuacao:" + pontuacao.getPontuacao().toString());
 		tabelaPontuacao.setText(pontTexto);
@@ -215,7 +215,6 @@ public class Tabuleiro extends JPanel {
 			int escolha = JOptionPane.showConfirmDialog(this, mensagem, "Aviso", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
 			menu.startTimer();
 			cl.show(painel,"1");
-			criaMapa();
 		}
 	}
 	
