@@ -34,7 +34,8 @@ public class Tabuleiro extends JPanel {
 	private int contador = 0;			
 	private String pontTexto;
 	private Teclado teclado;
-	private int machado;
+	private boolean noite = false;
+	private int tempoNoite = 0;
 	
 	public Tabuleiro(JPanel panelCont, CardLayout cardLayout, Login login, LeaderBoard leaderBoard, Menu menu) {
 		setReferencias(panelCont, cardLayout, login, leaderBoard, menu);
@@ -106,7 +107,6 @@ public class Tabuleiro extends JPanel {
 		addKeyListener(teclado);
 		pontuacao = new Score(0, login.getUsuario());
 		System.out.println(pontuacao.getUsuario());
-		machado = 0;
 		pontTexto = String.format("Pontuacao:" + pontuacao.getPontuacao().toString());
 		tabelaPontuacao.setText(pontTexto);
 		efeito.setText("Sem efeito");
@@ -137,6 +137,36 @@ public class Tabuleiro extends JPanel {
 		int[] veMax = max.getProx();
 		String bonus = max.interacao(Obstaculos[veMax[0]][veMax[1]].qualObjeto());
 		efeito.setText(bonus);
+		//aqui
+		if (noite == true) {
+			for (int i = 0; i < 20; i++) {
+				for (int j = 0; j < 20; j++) {
+					boolean x = vePosicao(i,j,veMax[0], veMax[1]);
+					if(x == true) {
+						if(Obstaculos[i][j].qualObjeto() != 'n')
+							Obstaculos[i][j].setVisivel(true);
+					}
+					else {
+						Obstaculos[i][j].setVisivel(false);
+					}				
+				}
+			}
+			tempoNoite++;
+		}
+		
+		if(tempoNoite == 50) {
+			for (int i = 0; i < 20; i++) {
+				for (int j = 0; j < 20; j++) {
+					if(Obstaculos[i][j].qualObjeto() != 'n')
+						Obstaculos[i][j].setVisivel(true);
+				}
+			}
+			
+			tempoNoite = 0;
+			noite = false;
+		}
+		
+		//ate aqui
 		for (int i = 0; i < 20; i++) {
 			for (int j = 0; j < 20; j++) {
 				if (Obstaculos[i][j] instanceof Arbusto) {
@@ -195,6 +225,14 @@ public class Tabuleiro extends JPanel {
 			}
 		}
 		contador = (contador + 1) % 2;
+		
+		//a partir daqui
+		//vira noite
+		BigInteger x = pontuacao.getPontuacao();
+		if (x.intValue() != 0 && x.intValue() % 100 == 0) {
+			noite = true;
+		}
+		//ate aqui
 	}
 	
 	public void mataMax() {
@@ -210,12 +248,24 @@ public class Tabuleiro extends JPanel {
 		}
 		if (vivo == false) {
 			this.timer.stop();
-			String mensagem = String.format("Max morreu.\n Sua pontuacao e: " + pontuacao.getPontuacao().toString());
+			String mensagem = String.format("Max morreu.\nSua pontuacao: " + pontuacao.getPontuacao().toString());
 			pontuacoesAltas.addScore(pontuacao);
 			int escolha = JOptionPane.showConfirmDialog(this, mensagem, "Aviso", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
 			menu.startTimer();
 			cl.show(painel,"1");
 		}
+	}
+	
+	public boolean vePosicao(int x, int y, int maxX, int maxY) {
+		if (x == maxX && y == maxY)
+			return true;
+		else if((x == maxX - 1 && y == maxY) || (x == maxX + 1 && y == maxY))
+			return true;
+		else if ((x == maxX && y == maxY - 1) || (x == maxX && y ==  maxY + 1))
+			return true;
+		else if ((x == maxX-1 && y == maxY-1) || (x == maxX-1 && y == maxY+1) || (x == maxX+1 && y == maxY-1) || (x == maxX+1 && y == maxY+1))
+			return true;
+		return false;
 	}
 	
 	public void daUmLoop() {

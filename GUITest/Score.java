@@ -3,16 +3,16 @@ import java.math.BigInteger;
 
 public class Score implements Serializable, IScore{
 
-	private BigInteger pontuacao;
+	private BigInteger pontos;
 	private String usuario;
 		
 	public Score(int pontos, String usuario) {
-		this.pontuacao = BigInteger.valueOf(pontos);
+		this.pontos = BigInteger.valueOf(pontos);
 		this.usuario = usuario;
 	}
 	
 	public BigInteger getPontuacao() {
-		return pontuacao;
+		return pontos;
 	}
 	
 	public String getUsuario() {
@@ -20,6 +20,6 @@ public class Score implements Serializable, IScore{
 	}
 
 	public void incrementa() {
-		this.pontuacao = this.pontuacao.add(BigInteger.valueOf(1));
+		this.pontos = this.pontos.add(BigInteger.valueOf(1));
 	}
 }
