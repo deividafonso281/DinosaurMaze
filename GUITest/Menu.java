@@ -20,6 +20,7 @@ public class Menu extends JPanel {
 	private JButton botaoOpcoes;
 	private JButton botaoPontuacoes;
 	private JButton botaoLoja;
+	private JButton botaoInstrucao;
 	private CardLayout cl;
 	private BufferedImage img;
 	private Timer timer;
@@ -69,6 +70,18 @@ public class Menu extends JPanel {
 					JOptionPane.showMessageDialog(Menu.this,"Em breve novas features");
 			}
 		);
+		
+		botaoInstrucao = new JButton("Instrucoes");
+		botaoInstrucao.setSize(200,50);
+		botaoInstrucao.setLocation(260,700);
+		add(botaoInstrucao);
+		/*botaoPontuacoes.addActionListener(
+			(ActionEvent event)->{
+					timer.stop();
+					cl.show(painel, "4");
+			}
+		);*/
+		
 		timer = new Timer(150,(ActionEvent evento)-> {
 			this.contador++;
 			if (contador == 6) {
@@ -87,7 +100,7 @@ public class Menu extends JPanel {
 		this.painel = p;
 		this.cl = c;
 		this.tabuleiro = tabuleiro;
-		System.out.println("References setadas");
+		System.out.println("Referencias setadas");
 	}
 	
 	private void setImagem(int i) {

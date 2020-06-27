@@ -38,7 +38,7 @@ public class Login extends JPanel{
 	public void setReferencias(JPanel p, CardLayout c) {
 		this.painel = p;
 		this.cl = c;
-		System.out.println("References setadas login");
+		System.out.println("Referencias setadas login");
     }
 	
 	public String getUsuario() {

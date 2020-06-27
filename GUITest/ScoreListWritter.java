@@ -4,12 +4,12 @@ import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.util.NoSuchElementException;
 
-public class ScoreListWritter {
+public class ScoreListWritter implements IEscrevePlacar{
 
 	private ObjectOutputStream saida;
 	private File arquivo = new File("leaderboard.ser");
 	
-	public void abrirArquivo() {
+	public void abreArquivo() {
 		if (!arquivo.exists()) {
 			try {
 				arquivo.createNewFile();
@@ -41,7 +41,7 @@ public class ScoreListWritter {
 	}
 
 	public void salvaListaPlacar (ScoreList listaPlacar) {
-		abrirArquivo();
+		abreArquivo();
 		escreveListaPlacar(listaPlacar);
 		fechaArquivo();
 	}

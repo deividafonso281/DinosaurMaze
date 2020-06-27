@@ -1,3 +1,4 @@
+import java.awt.Color;
 import java.awt.Graphics;
 import javax.imageio.ImageIO;
 import java.io.File;

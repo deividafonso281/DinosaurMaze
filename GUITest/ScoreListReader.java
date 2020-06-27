@@ -4,7 +4,7 @@ import java.io.ObjectInputStream;
 import java.io.EOFException;
 import java.io.IOException;
 
-public class ScoreListReader {
+public class ScoreListReader implements ILePlacar{
 
 	private ObjectInputStream entrada;
 	private File arquivo = new File("leaderboard.ser");

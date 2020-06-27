@@ -14,7 +14,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import java.awt.CardLayout;
 
-public class Tabuleiro extends JPanel {
+public class Tabuleiro extends JPanel implements ITabuleiro {
 	
 	
 	private JPanel painel;
@@ -137,7 +137,7 @@ public class Tabuleiro extends JPanel {
 		int[] veMax = max.getProx();
 		String bonus = max.interacao(Obstaculos[veMax[0]][veMax[1]].qualObjeto());
 		efeito.setText(bonus);
-		//aqui
+		
 		if (noite == true) {
 			for (int i = 0; i < 20; i++) {
 				for (int j = 0; j < 20; j++) {
@@ -166,7 +166,6 @@ public class Tabuleiro extends JPanel {
 			noite = false;
 		}
 		
-		//ate aqui
 		for (int i = 0; i < 20; i++) {
 			for (int j = 0; j < 20; j++) {
 				if (Obstaculos[i][j] instanceof Arbusto) {
@@ -232,7 +231,6 @@ public class Tabuleiro extends JPanel {
 		if (x.intValue() != 0 && x.intValue() % 100 == 0) {
 			noite = true;
 		}
-		//ate aqui
 	}
 	
 	public void mataMax() {
