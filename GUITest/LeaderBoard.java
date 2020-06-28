@@ -11,7 +11,7 @@ import java.awt.image.BufferedImage;
 import java.awt.Graphics;
 import java.awt.Color;
 
-public class LeaderBoard extends JPanel{
+public class LeaderBoard extends JPanel implements IPlacares{
 
 	private ScoreListWritter scoreListWritter = new ScoreListWritter();
 	private ScoreListReader scoreListReader = new ScoreListReader();

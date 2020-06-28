@@ -6,7 +6,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.CardLayout;
 
-public class Login extends JPanel{
+public class Login extends JPanel implements ILogin{
 
 	private String nomeUsuario;
 	private JButton botaoLogin;
