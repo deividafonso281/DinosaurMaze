@@ -35,7 +35,6 @@ public class Tabuleiro extends JPanel implements ITabuleiro {
 	private String pontTexto;
 	private Teclado teclado;
 	private boolean noite = false;
-	private int tempoNoite = 0;
 	
 	public Tabuleiro(JPanel panelCont, CardLayout cardLayout, Login login, LeaderBoard leaderBoard, Menu menu) {
 		setReferencias(panelCont, cardLayout, login, leaderBoard, menu);
@@ -116,20 +115,49 @@ public class Tabuleiro extends JPanel implements ITabuleiro {
 		setBackground(fundo);
 		super.paintComponent(g);
 		int largura = 720;
-		int altura = 720;
-		int ritmo = 36;
-		for (int i = 0; i <= 20; i++) {
-			g.drawLine(0,80 + i * ritmo, largura, 80 + i * ritmo);
-			g.drawLine(i * ritmo, 80, i * ritmo, altura + 80);
-		}
-		for (int i = 0; i < 20; i++) {
-			for (int j = 0; j < 20; j++) {
-				Obstaculos[i][j].desenha(g);
+                int altura = 720;
+                int ritmo = 36;
+		if (noite==true) {
+			int[] pos = max.getAtual();
+			int cantoex = Math.max((pos[0]-1),0);
+			int cantoey = Math.max((pos[1]-1),0);
+			int cantodx = Math.min((pos[0]+2),20);
+			int cantody = Math.min((pos[1]+2),20);
+			g.setColor(Color.BLACK);
+			g.fillRect(0,80,720,720);
+			g.setColor(fundo);
+			g.fillRect(cantoex*36,cantoey*36+80,(cantodx-cantoex)*36,(cantody-cantoey)*36);
+			g.setColor(Color.BLACK);
+			for (int i=cantoex;i<cantodx;i++) {
+				for (int j=cantoey;j<cantody;j++) {
+					g.drawLine(cantoex*36,80 + j * ritmo, cantodx*36, 80 + j * ritmo);
+                                	g.drawLine(i * ritmo, cantoey*36+80, i * ritmo, cantody*36 + 80);
+					if(Obstaculos[i][j].qualObjeto()!='n') {
+						Obstaculos[i][j].setVisivel(true);
+						Obstaculos[i][j].desenha(g);
+						Obstaculos[i][j].setVisivel(false);
+					}
+				}
 			}
-		}
-		max.draw(g);
-		for (int i = 0; i < 5; i++) {
-			met[i].desenha(g);
+			for (int i = 0; i < 5; i++) {
+                                met[i].desenha(g);
+                        }
+                        max.draw(g);
+		} 
+		else {
+			for (int i = 0; i <= 20; i++) {
+				g.drawLine(0,80 + i * ritmo, largura, 80 + i * ritmo);
+				g.drawLine(i * ritmo, 80, i * ritmo, altura + 80);
+			}
+			for (int i = 0; i < 20; i++) {
+				for (int j = 0; j < 20; j++) {
+					Obstaculos[i][j].desenha(g);
+				}
+			}
+			max.draw(g);
+			for (int i = 0; i < 5; i++) {
+				met[i].desenha(g);
+			}
 		}
 	}
 
@@ -137,34 +165,6 @@ public class Tabuleiro extends JPanel implements ITabuleiro {
 		int[] veMax = max.getProx();
 		String bonus = max.interacao(Obstaculos[veMax[0]][veMax[1]].qualObjeto());
 		efeito.setText(bonus);
-		
-		if (noite == true) {
-			for (int i = 0; i < 20; i++) {
-				for (int j = 0; j < 20; j++) {
-					boolean x = vePosicao(i,j,veMax[0], veMax[1]);
-					if(x == true) {
-						if(Obstaculos[i][j].qualObjeto() != 'n')
-							Obstaculos[i][j].setVisivel(true);
-					}
-					else {
-						Obstaculos[i][j].setVisivel(false);
-					}				
-				}
-			}
-			tempoNoite++;
-		}
-		
-		if(tempoNoite == 50) {
-			for (int i = 0; i < 20; i++) {
-				for (int j = 0; j < 20; j++) {
-					if(Obstaculos[i][j].qualObjeto() != 'n')
-						Obstaculos[i][j].setVisivel(true);
-				}
-			}
-			
-			tempoNoite = 0;
-			noite = false;
-		}
 		
 		for (int i = 0; i < 20; i++) {
 			for (int j = 0; j < 20; j++) {
@@ -176,51 +176,9 @@ public class Tabuleiro extends JPanel implements ITabuleiro {
 		if (contador == 0) {
 			for (int i = 0; i < 5; i++) {
 				int[] veMeteoro = met[i].getProx();
-				if (Obstaculos[veMeteoro[0]][veMeteoro[1]].qualObjeto() != 'a') {
-					int[] direita = met[i].getDireita();
-                    int[] esquerda = met[i].getEsquerda();
-					if(Obstaculos[direita[0]][direita[1]].qualObjeto() != 'a' && Obstaculos[esquerda[0]][esquerda[1]].qualObjeto() != 'a') {
-                                		int escolha = aleatorio.nextInt(10) + 1;
-                                		if (escolha == 1) {
-                                        		met[i].viraDireita();
-                                		}
-                                		else if (escolha == 2){
-                                        		met[i].viraEsquerda();
-                                		}
-                    }
-                    else if (Obstaculos[direita[0]][direita[1]].qualObjeto() != 'a' && Obstaculos[esquerda[0]][esquerda[1]].qualObjeto() == 'a') {
-                    	int escolha = aleatorio.nextInt(9) + 1;
-                    	if (escolha == 1) {
-                    		met[i].viraDireita();
-						}
-                    }
-                    else if (Obstaculos[direita[0]][direita[1]].qualObjeto() == 'a' && Obstaculos[esquerda[0]][esquerda[1]].qualObjeto() != 'a') {
-                    	int escolha = aleatorio.nextInt(9) + 1;
-                    	if (escolha == 1) {
-                    		met[i].viraEsquerda();
-						}
-                    }
-					met[i].move();
-				}
-				else {
-					int[] direita = met[i].getDireita();
-					int[] esquerda = met[i].getEsquerda();
-					if(Obstaculos[direita[0]][direita[1]].qualObjeto() != 'a' && Obstaculos[esquerda[0]][esquerda[1]].qualObjeto() != 'a') {
-						int escolha = aleatorio.nextInt(2) + 1;
-						if (escolha == 1) {
-							met[i].viraDireita();
-						}
-						else {
-							met[i].viraEsquerda();
-						}
-					}
-					else if (Obstaculos[direita[0]][direita[1]].qualObjeto() != 'a' && Obstaculos[esquerda[0]][esquerda[1]].qualObjeto() == 'a') {
-						met[i].viraDireita();
-					}
-					else if (Obstaculos[direita[0]][direita[1]].qualObjeto() == 'a' && Obstaculos[esquerda[0]][esquerda[1]].qualObjeto() != 'a') {
-						met[i].viraEsquerda();
-					}
-				}
+				int[] direita = met[i].getDireita();
+                                int[] esquerda = met[i].getEsquerda();
+				met[i].interagir(Obstaculos[direita[0]][direita[1]].qualObjeto(),Obstaculos[esquerda[0]][esquerda[1]].qualObjeto(),Obstaculos[veMeteoro[0]][veMeteoro[1]].qualObjeto());
 			}
 		}
 		contador = (contador + 1) % 2;
@@ -228,8 +186,11 @@ public class Tabuleiro extends JPanel implements ITabuleiro {
 		//a partir daqui
 		//vira noite
 		BigInteger x = pontuacao.getPontuacao();
-		if (x.intValue() != 0 && x.intValue() % 100 == 0) {
-			noite = true;
+		if (x.intValue() % 150 == 100) {
+			anoitecer();
+		}
+		else if (x.intValue() % 150 == 0) {
+			amanhecer();
 		}
 	}
 	
@@ -254,18 +215,6 @@ public class Tabuleiro extends JPanel implements ITabuleiro {
 		}
 	}
 	
-	public boolean vePosicao(int x, int y, int maxX, int maxY) {
-		if (x == maxX && y == maxY)
-			return true;
-		else if((x == maxX - 1 && y == maxY) || (x == maxX + 1 && y == maxY))
-			return true;
-		else if ((x == maxX && y == maxY - 1) || (x == maxX && y ==  maxY + 1))
-			return true;
-		else if ((x == maxX-1 && y == maxY-1) || (x == maxX-1 && y == maxY+1) || (x == maxX+1 && y == maxY-1) || (x == maxX+1 && y == maxY+1))
-			return true;
-		return false;
-	}
-	
 	public void daUmLoop() {
 		atualiza();
 		repaint();
@@ -284,5 +233,25 @@ public class Tabuleiro extends JPanel implements ITabuleiro {
 		this.pontuacoesAltas = l;
 		this.menu = menu;
 		System.out.println("Referencias setadas Login");
+	}
+
+	public void anoitecer() {
+		for (int i = 0; i < 20; i++) {
+                	for (int j = 0; j < 20; j++) {
+                                if(Obstaculos[i][j].qualObjeto() != 'n')
+                                        Obstaculos[i][j].setVisivel(true);
+                	}
+        	}
+		noite = true;
+	}
+
+	public void amanhecer() {
+		for (int i = 0; i < 20; i++) {
+                	for (int j = 0; j < 20; j++) {
+                        	if(Obstaculos[i][j].qualObjeto() != 'n')
+                        		Obstaculos[i][j].setVisivel(true);
+                        }
+                }
+		noite = false;
 	}
 }
