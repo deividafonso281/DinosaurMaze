@@ -12,7 +12,7 @@ import java.io.IOException;
 import java.awt.image.BufferedImage;
 import javax.swing.Timer;
 
-public class Menu extends JPanel {
+public class Menu extends JPanel implements IMenu {
 
 	private JPanel painel;
 	private Tabuleiro tabuleiro;
@@ -75,12 +75,26 @@ public class Menu extends JPanel {
 		botaoInstrucao.setSize(200,50);
 		botaoInstrucao.setLocation(260,700);
 		add(botaoInstrucao);
-		/*botaoPontuacoes.addActionListener(
-			(ActionEvent event)->{
-					timer.stop();
-					cl.show(painel, "4");
+		botaoInstrucao.addActionListener(
+				(ActionEvent event)->{
+					JOptionPane.showMessageDialog(Menu.this,"PARA JOGAR\r\n" + 
+							"-> Use as setas da esquerda e da direita do seu teclado, ou as teclas \"a\" e \"d\".\r\n" + 
+							"-> A seta da esquerda(\"a\") move o dinossauro no sentido horario.\r\n" + 
+							"-> A seta da direita (\"d\") move o dinossauro no sentido anti-horario.\r\n" + 
+							"-> Caso nao aperte as setas o dinossauro ira sempre para a frente.\r\n" + 
+							"\r\n" + 
+							"OBJETIVOS\r\n" + 
+							"-> Fugir do meteoros.\r\n" + 
+							"-> Ganhar o maior numero de pontos possivel.\r\n" + 
+							"\r\n" + 
+							"CENARIO\r\n" + 
+							"-> As arvores representam obstaculos que precisam ser contornados.\r\n" + 
+							"-> Os arbustos escondem surpresas que podem ajudar ou atrapalhar.\r\n" + 
+							"-> O dia vira noite com uma certa periodicidade.\r\n" + 
+							"-> Durante a noite a visao do dinossauro em relacao ao cenario e limitada a algumas casas.");
 			}
-		);*/
+		);
+
 		
 		timer = new Timer(150,(ActionEvent evento)-> {
 			this.contador++;
