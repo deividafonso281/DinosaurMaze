@@ -3,10 +3,12 @@ import javax.swing.JPanel;
 import java.awt.CardLayout;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 public class DesenhaTabuleiro {
 
-	public static void main (String[] args) {
+	/*public static void main (String[] args) {
 		CardLayout cl = new CardLayout();
 		JPanel painel = new JPanel();
 		Login login = new Login();
@@ -35,5 +37,10 @@ public class DesenhaTabuleiro {
 		aplicacao.add(painel);
 		aplicacao.setSize(720,850);
 		aplicacao.setVisible(true);
+	}*/
+	public static void main (String[] args) {
+		ExecutorService programa = Executors.newCachedThreadPool();
+		programa.execute(()->{new Aplicacao();});
+		programa.execute(()->{new TocadorDeMusica();});
 	}
 }
