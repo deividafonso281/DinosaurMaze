@@ -5,10 +5,14 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import javax.sound.sampled.*;
+import java.io.*;
 
 public class DesenhaTabuleiro {
 
 	/*public static void main (String[] args) {
+		TocadorDeMusica tocador = new TocadorDeMusica();
+		tocador.play();
 		CardLayout cl = new CardLayout();
 		JPanel painel = new JPanel();
 		Login login = new Login();
@@ -39,8 +43,7 @@ public class DesenhaTabuleiro {
 		aplicacao.setVisible(true);
 	}*/
 	public static void main (String[] args) {
-		ExecutorService programa = Executors.newCachedThreadPool();
-		programa.execute(()->{new Aplicacao();});
-		programa.execute(()->{new TocadorDeMusica();});
+		TocadorDeMusica tocador = new TocadorDeMusica();
+		Aplicacao aplicacao = new Aplicacao();
 	}
 }

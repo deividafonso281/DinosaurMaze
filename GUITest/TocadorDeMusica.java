@@ -17,4 +17,12 @@ public class TocadorDeMusica {
 		}
 	}
 
+	public void play() {
+		clipe.start();
+	}
+	
+	public void stop() {
+		clipe.stop();
+	}
+
 }

@@ -38,6 +38,8 @@ public class Menu extends JPanel implements IMenu {
 					timer.stop();
 					tabuleiro.criaMapa();
 					cl.show(painel, "2");
+					contador = 1;
+					setImagem(contador);
 					tabuleiro.requestFocus();
 					tabuleiro.iniciaTempo();
 			}

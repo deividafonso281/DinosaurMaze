@@ -4,7 +4,6 @@ import java.awt.CardLayout;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
-
 public class Aplicacao extends JFrame {
 
 	CardLayout cl = new CardLayout();
@@ -13,7 +12,7 @@ public class Aplicacao extends JFrame {
         Menu menu = new Menu();
         LeaderBoard l = new LeaderBoard();
         Tabuleiro tab  = new Tabuleiro(painel, cl, login, l, menu);
-        public Aplicacao () {
+	public Aplicacao () {
 		super("Dinosaur Maze");
         	painel.setLayout(cl);
         	menu.setReferencias(painel, cl, tab);
