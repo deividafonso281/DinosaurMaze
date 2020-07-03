@@ -9,22 +9,33 @@ public class Dinosaur extends PMovimento {
 	
 	private BufferedImage img;
 	private String direcao;
-	private int contador;
 	private int machado;
+	private int capacete;
 	private String bonus;
 	
 	public Dinosaur (int i, int j) {
 	 	super(i,j);
 		direcao = "direita";
-		contador = 1;
 		machado = 0;
+		capacete = 0;
 		bonus = "";
 		setImagens();
 	}
 	
 	private void setImagens() {
 		try {
-			img = ImageIO.read(new File("max" + contador+"_" + direcao + ".png"));
+			if (machado ==0&& capacete ==0) {
+				img = ImageIO.read(new File("max" + 1+"_" + direcao + ".png"));
+			}
+			else if (machado == 0&&capacete !=0) {
+				img = ImageIO.read(new File("max" + 1+"_" + direcao + "_"+"capacete"+".png"));
+			}
+			else if (machado!= 0 && capacete==0) {
+				img = ImageIO.read(new File("max" + 1+"_" + direcao + "_"+"machado"+".png"));
+			}
+			else {
+				img = ImageIO.read(new File("max" + 1+"_" + direcao + "_"+"machado"+"_"+"capacete"+".png"));
+			}
 		} catch (IOException exception) {
 		}
 	
@@ -36,7 +47,6 @@ public class Dinosaur extends PMovimento {
 	
 	public void move() {
 		super.move();
-        contador = (contador) % 2 + 1;
 		setImagens();
 	}
 	
@@ -78,38 +88,49 @@ public class Dinosaur extends PMovimento {
 		return super.getDireita();
 	}
 
-	public String interacao(char efeito) {
-		if (efeito == 'b') {
+	public EstadoDoJogo interacao(EstadoDoJogo estado) {
+		int[] atual = getAtual();
+		int[] prox = getProx();
+		char efeito_atual = estado.getPeca(atual[0],atual[1]).qualObjeto();
+		char efeito_prox = estado.getPeca(prox[0],prox[1]).qualObjeto();
+		if (efeito_atual == 'b') {
+			((Arbusto)estado.getPeca(atual[0],atual[1])).pisotear();
+			((Arbusto)estado.getPeca(atual[0],atual[1])).setVisivel(false);
 			//caso de buraco debaixo do arbusto
 			//max fica parado por pelo menos uma rodada
-			bonus = "Buraco";
 		}
-		else if(efeito == 'c') {
+		else if(efeito_atual == 'c') {
 			//caso de capacete vai mais rapido
+			capacete++;
+			((Arbusto)estado.getPeca(atual[0],atual[1])).pisotear();
+			((Arbusto)estado.getPeca(atual[0],atual[1])).setVisivel(false);
 			move();
 			move();
-			bonus = "Capacete";
 		}
-		else if (efeito == 'm') {
+		else if (efeito_atual == 'm') {
 			machado++;
-			bonus = "Machado";
+			((Arbusto)estado.getPeca(atual[0],atual[1])).pisotear();
+			((Arbusto)estado.getPeca(atual[0],atual[1])).setVisivel(false);
+			move();
 		}
-		else if (efeito == 'v') {
+		else if (efeito_atual == 'v') {
 			//se e um arbusto e ta vazio
+			((Arbusto)estado.getPeca(atual[0],atual[1])).pisotear();
+			((Arbusto)estado.getPeca(atual[0],atual[1])).setVisivel(false);
 			move();
-			bonus = "";
 		}
-		else if(machado != 0 && efeito =='a') {
+		else if(machado != 0 && efeito_prox =='a') {
 			machado--;
+			estado.setPeca(prox[0],prox[1],new Toquinho(prox[0]+1,prox[1]+1));
 			move();
 		}
-		else if (machado == 0 && efeito =='a') {
+		else if (machado == 0 && efeito_prox =='a') {
 			;
 		}
 		else {
 			//se nao tiver machados nao pode passar por cima das arvores
 			move();
 		}
-		return bonus;
+		return estado;
 	} 
 }

@@ -8,10 +8,12 @@ import java.awt.image.BufferedImage;
 public class Arbusto extends Cenario {
 	
 	private int contador;
+	private boolean pisoteado;
 
 	public Arbusto (int i, int j) {
 		super(i, j, true);
 		contador = 0;
+		pisoteado = false;
 		setSrc("novo_arbusto.png");
 	}
 	
@@ -32,18 +34,20 @@ public class Arbusto extends Cenario {
 	}
 	
 	public char qualObjeto() {
-		if (visivel == true) {
+		if (pisoteado==false) {
 			
 			Random aleatorio = new Random();
 			int num = aleatorio.nextInt(9);
-			setVisivel(false);
 			
-			if (num % 2 == 0) //0 2 4 6 8 buracos
+			if (num % 2 == 0) {//0 2 4 6 8 buracos
 				return 'b'; //buraco
-			if (num == 1) 
+			}
+			if (num == 1) {
 				return 'c'; //capacete
-			if (num == 3 || num == 5)  
+			}
+			if (num == 3 || num == 5) { 
 				return 'm'; //machadinho
+			}
 			return 'v'; //se o numero for 7 ou 9 retorna vazio
 		}
 		else {
@@ -52,15 +56,19 @@ public class Arbusto extends Cenario {
 	}
 
 	public void confere() {
-		if (visivel == false) {
+		if (pisoteado == true) {
 			if (contador < 19) {
 				contador++;
-				System.out.println(contador);
 			}
 			else {
+				pisoteado = false;
 				setVisivel(true);
+				setSrc("novo_arbusto.png");
                 		contador = 0;
 			}
 		}
+	}
+	public void pisotear() {
+		pisoteado = true;
 	}
 }

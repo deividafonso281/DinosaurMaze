@@ -80,7 +80,13 @@ public class Meteor extends PMovimento {
 		return super.getAtual();
 	}
 
-	public void interagir(char direita, char esquerda, char frente) {
+	public EstadoDoJogo interacao(EstadoDoJogo estado) {
+		int[] prox = getProx();
+		int[] dir = getDireita();
+		int[] esq = getEsquerda();
+		char frente = estado.getPeca(prox[0],prox[1]).qualObjeto();
+		char direita = estado.getPeca(dir[0],dir[1]).qualObjeto();
+		char esquerda = estado.getPeca(esq[0],esq[1]).qualObjeto();
 		if (frente != 'a') { 
                 	if(direita != 'a' && esquerda != 'a') {
                         	int escolha = aleatorio.nextInt(10) + 1;
@@ -122,5 +128,6 @@ public class Meteor extends PMovimento {
                                  viraEsquerda();
 			 }                                 
 		}
+		return estado;
 	}
 }
