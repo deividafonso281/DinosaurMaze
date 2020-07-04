@@ -1,14 +1,14 @@
 public abstract class PMovimento implements IMovable {
 	
 	public int posx;
-    public int posy;
-    public int dirx = 0;
-    public int diry = 1;
+	public int posy;
+   	public int dirx = 0;
+        public int diry = 1;
 	
 	public PMovimento (int i, int j) {
                 posx = i;
                 posy = j;
-    }	
+    	}	
 
 	public void move() {
                 this.posx += dirx;
@@ -160,5 +160,5 @@ public abstract class PMovimento implements IMovable {
 		posicao[0] = posx - 1;
 		posicao[1] = posy - 1;
 		return posicao;
-	}	
+	}
 }

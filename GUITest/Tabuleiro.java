@@ -24,10 +24,12 @@ public class Tabuleiro extends JPanel implements ITabuleiro {
 	private Loja loja;
 	private LeaderBoard pontuacoesAltas;
 	private JLabel tabelaPontuacao = new JLabel();
+	private JLabel machado = new JLabel("Machados:");
+	private JLabel capacete = new JLabel("Capacetes:");
 	private Score pontuacao;
 	private Timer timer = new Timer(100,(ActionEvent event)->daUmLoop());
 	private Dinosaur max;
-	private Meteor[] met = new Meteor[5];
+	private IMovable[] meteoros = new IMovable[5];
 	private Color fundo = new Color(217,200,158);
 	private EstadoDoJogo estado;
 	private Random aleatorio = new Random();
@@ -37,6 +39,16 @@ public class Tabuleiro extends JPanel implements ITabuleiro {
 	private boolean noite = false;
 	
 	public Tabuleiro(JPanel panelCont, CardLayout cardLayout, Login login, LeaderBoard leaderBoard, Menu menu,Loja loja) {
+		setLayout(null);
+		tabelaPontuacao.setSize(200,20);
+		tabelaPontuacao.setLocation(330,0);
+		add(tabelaPontuacao);
+		machado.setSize(80,20);
+		machado.setLocation(22,40);
+		add(machado);
+		capacete.setSize(80,20);
+		capacete.setLocation(330,40);
+		add(capacete);
 		estado = new EstadoDoJogo();
 		setReferencias(panelCont, cardLayout, login, leaderBoard, menu,loja);
 		add(tabelaPontuacao);
@@ -49,7 +61,7 @@ public class Tabuleiro extends JPanel implements ITabuleiro {
 	
 	public  void criaMapa() {		
 		for (int i = 0; i < 5; i++) {
-			met[i] = new Meteor(2, 2+i);
+			meteoros[i] = new Meteor(2, 2+i);
 		}
 		max = new Dinosaur(9,9);
 		max.setSkin(loja.getSkin());
@@ -67,6 +79,12 @@ public class Tabuleiro extends JPanel implements ITabuleiro {
 		int largura = 720;
                 int altura = 720;
                 int ritmo = 36;
+		for (int i=1;i<=max.getMachado();i++) {
+			Machado.draw(g,i);
+		}
+		for (int i=1;i<=max.getCapacete();i++) {
+                        Capacete.draw(g,i);
+                }
 		if (noite==true) {
 			int[] pos = max.getAtual();
 			int cantoex = Math.max((pos[0]-1),0);
@@ -90,9 +108,9 @@ public class Tabuleiro extends JPanel implements ITabuleiro {
 				}
 			}
 			for (int i = 0; i < 5; i++) {
-                                met[i].desenha(g);
+                                meteoros[i].desenha(g);
                         }
-                        max.draw(g);
+                        max.desenha(g);
 		} 
 		else {
 			for (int i = 0; i <= 20; i++) {
@@ -100,9 +118,9 @@ public class Tabuleiro extends JPanel implements ITabuleiro {
 				g.drawLine(i * ritmo, 80, i * ritmo, altura + 80);
 			}
 			estado.desenhaEstado(g);
-			max.draw(g);
+			max.desenha(g);
 			for (int i = 0; i < 5; i++) {
-				met[i].desenha(g);
+				meteoros[i].desenha(g);
 			}
 		}
 	}
@@ -121,7 +139,7 @@ public class Tabuleiro extends JPanel implements ITabuleiro {
 		}
 		if (contador == 0) {
 			for (int i = 0; i < 5; i++) {
-				estado = met[i].interacao(estado);
+				estado = meteoros[i].interacao(estado);
 			}
 		}
 		contador = (contador + 1) % 2;
@@ -137,13 +155,13 @@ public class Tabuleiro extends JPanel implements ITabuleiro {
 		}
 	}
 	
-	public void mataMax() {
+	private void mataMax() {
 		boolean vivo = true;
 		int[] maxPos = new int[2];
 		int[] meteorPos = new int[2];
 		maxPos = max.getAtual();
 		for (int i = 0; i < 5 && vivo; i++) {
-			meteorPos = met[i].getAtual();
+			meteorPos = meteoros[i].getAtual();
 			if (meteorPos[0] == maxPos[0] && meteorPos[1] == maxPos[1]) {
 				vivo = false;
 			}
@@ -158,7 +176,7 @@ public class Tabuleiro extends JPanel implements ITabuleiro {
 		}
 	}
 	
-	public void daUmLoop() {
+	private void daUmLoop() {
 		atualiza();
 		repaint();
 		if (contador == 1) {
@@ -178,7 +196,7 @@ public class Tabuleiro extends JPanel implements ITabuleiro {
 		this.loja = loja;
 	}
 
-	public void anoitecer() {
+	private void anoitecer() {
 		for (int i = 0; i < 20; i++) {
                 	for (int j = 0; j < 20; j++) {
                                 if(estado.getPeca(i,j).qualObjeto() != 'n')
@@ -188,7 +206,7 @@ public class Tabuleiro extends JPanel implements ITabuleiro {
 		noite = true;
 	}
 
-	public void amanhecer() {
+	private void amanhecer() {
 		for (int i = 0; i < 20; i++) {
                 	for (int j = 0; j < 20; j++) {
                         	if(estado.getPeca(i,j).qualObjeto() != 'n')

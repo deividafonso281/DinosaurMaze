@@ -19,10 +19,10 @@ public class Dinosaur extends PMovimento {
 		machado = 0;
 		capacete = 0;
 		skin = "";
-		setImagens();
+		defineImagens();
 	}
 	
-	private void setImagens() {
+	private void defineImagens() {
 		try {
 			if (machado ==0&& capacete ==0) {
 				img = ImageIO.read(new File("max"+ skin +"_" + direcao + ".png"));
@@ -41,13 +41,13 @@ public class Dinosaur extends PMovimento {
 	
 	}
 	
-	public void draw (Graphics g) {
+	public void desenha (Graphics g) {
 		g.drawImage(img, (posx - 1) * 36, 80 + (posy - 1) * 36, null);
 	}
 	
 	public void move() {
 		super.move();
-		setImagens();
+		defineImagens();
 	}
 	
 	public void viraDireita() {
@@ -58,7 +58,7 @@ public class Dinosaur extends PMovimento {
 		else if (dirx == -1 && diry == 0) {
 			direcao = "esquerda";
 		}
-		setImagens();
+		defineImagens();
 	}
 
 	public void viraEsquerda() {
@@ -69,7 +69,7 @@ public class Dinosaur extends PMovimento {
 		else if (dirx == 1 && diry == 0) {
 			direcao = "direita";
 		}
-		setImagens();
+		defineImagens();
 	}
 	
 	public int[] getProx() {
@@ -105,14 +105,18 @@ public class Dinosaur extends PMovimento {
 		}
 		else if(efeito_atual == 'c') {
 			//caso de capacete vai mais rapido
-			capacete++;
+			if (capacete<3) {
+				capacete++;
+			}
 			((Arbusto)estado.getPeca(atual[0],atual[1])).pisotear();
 			((Arbusto)estado.getPeca(atual[0],atual[1])).setVisivel(false);
 			move();
 			move();
 		}
 		else if (efeito_atual == 'm') {
-			machado++;
+			if (machado<3) {
+				machado++;
+			}
 			((Arbusto)estado.getPeca(atual[0],atual[1])).pisotear();
 			((Arbusto)estado.getPeca(atual[0],atual[1])).setVisivel(false);
 			move();
@@ -140,6 +144,14 @@ public class Dinosaur extends PMovimento {
 
 	public void setSkin(String skin) {
 		this.skin = skin;
-		setImagens();
+		defineImagens();
+	}
+
+	public int getMachado() {
+		return machado;
 	} 
+	
+	public int getCapacete() {
+		return capacete;
+	}
 }
