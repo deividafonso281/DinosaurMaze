@@ -11,30 +11,30 @@ public class Dinosaur extends PMovimento {
 	private String direcao;
 	private int machado;
 	private int capacete;
-	private String bonus;
+	private String skin;
 	
 	public Dinosaur (int i, int j) {
 	 	super(i,j);
 		direcao = "direita";
 		machado = 0;
 		capacete = 0;
-		bonus = "";
+		skin = "";
 		setImagens();
 	}
 	
 	private void setImagens() {
 		try {
 			if (machado ==0&& capacete ==0) {
-				img = ImageIO.read(new File("max" + 1+"_" + direcao + ".png"));
+				img = ImageIO.read(new File("max"+ skin +"_" + direcao + ".png"));
 			}
 			else if (machado == 0&&capacete !=0) {
-				img = ImageIO.read(new File("max" + 1+"_" + direcao + "_"+"capacete"+".png"));
+				img = ImageIO.read(new File("max"+ skin +"_" + direcao + "_capacete.png"));
 			}
 			else if (machado!= 0 && capacete==0) {
-				img = ImageIO.read(new File("max" + 1+"_" + direcao + "_"+"machado"+".png"));
+				img = ImageIO.read(new File("max"+ skin +"_" + direcao + "_machado.png"));
 			}
 			else {
-				img = ImageIO.read(new File("max" + 1+"_" + direcao + "_"+"machado"+"_"+"capacete"+".png"));
+				img = ImageIO.read(new File("max"+ skin +"_" + direcao + "_machado_capacete.png"));
 			}
 		} catch (IOException exception) {
 		}
@@ -93,6 +93,10 @@ public class Dinosaur extends PMovimento {
 		int[] prox = getProx();
 		char efeito_atual = estado.getPeca(atual[0],atual[1]).qualObjeto();
 		char efeito_prox = estado.getPeca(prox[0],prox[1]).qualObjeto();
+		if (efeito_atual == 'a') {
+			posx = 2;
+			posy = 2;
+		}
 		if (efeito_atual == 'b') {
 			((Arbusto)estado.getPeca(atual[0],atual[1])).pisotear();
 			((Arbusto)estado.getPeca(atual[0],atual[1])).setVisivel(false);
@@ -132,5 +136,10 @@ public class Dinosaur extends PMovimento {
 			move();
 		}
 		return estado;
+	}
+
+	public void setSkin(String skin) {
+		this.skin = skin;
+		setImagens();
 	} 
 }

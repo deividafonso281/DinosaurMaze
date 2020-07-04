@@ -21,6 +21,7 @@ public class Tabuleiro extends JPanel implements ITabuleiro {
 	private CardLayout cl;
 	private Login login;
 	private Menu menu;
+	private Loja loja;
 	private LeaderBoard pontuacoesAltas;
 	private JLabel tabelaPontuacao = new JLabel();
 	private Score pontuacao;
@@ -35,9 +36,9 @@ public class Tabuleiro extends JPanel implements ITabuleiro {
 	private Teclado teclado;
 	private boolean noite = false;
 	
-	public Tabuleiro(JPanel panelCont, CardLayout cardLayout, Login login, LeaderBoard leaderBoard, Menu menu) {
+	public Tabuleiro(JPanel panelCont, CardLayout cardLayout, Login login, LeaderBoard leaderBoard, Menu menu,Loja loja) {
 		estado = new EstadoDoJogo();
-		setReferencias(panelCont, cardLayout, login, leaderBoard, menu);
+		setReferencias(panelCont, cardLayout, login, leaderBoard, menu,loja);
 		add(tabelaPontuacao);
 	}
 	
@@ -51,6 +52,7 @@ public class Tabuleiro extends JPanel implements ITabuleiro {
 			met[i] = new Meteor(2, 2+i);
 		}
 		max = new Dinosaur(9,9);
+		max.setSkin(loja.getSkin());
 		teclado = new Teclado(max);
 		addKeyListener(teclado);
 		pontuacao = new Score(0, login.getUsuario());
@@ -106,12 +108,14 @@ public class Tabuleiro extends JPanel implements ITabuleiro {
 	}
 
 	private void atualiza() {
-		 estado = max.interacao(estado);
-		
+		estado = max.interacao(estado);
 		for (int i = 0; i < 20; i++) {
 			for (int j = 0; j < 20; j++) {
 				if (estado.getPeca(i,j) instanceof Arbusto) {
-					((Arbusto) estado.getPeca(i,j)).confere();
+					((Arbusto) estado.getPeca(i,j)).confere(estado);
+				}
+				if (estado.getPeca(i,j) instanceof Toquinho) {
+					((Toquinho) estado.getPeca(i,j)).confere(estado);
 				}
 			}
 		}
@@ -150,7 +154,7 @@ public class Tabuleiro extends JPanel implements ITabuleiro {
 			pontuacoesAltas.addScore(pontuacao);
 			int escolha = JOptionPane.showConfirmDialog(this, mensagem, "Aviso", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
 			menu.startTimer();
-			cl.show(painel,"1");
+			cl.show(painel,"menu");
 		}
 	}
 	
@@ -165,13 +169,13 @@ public class Tabuleiro extends JPanel implements ITabuleiro {
 		mataMax();
 	}
 	
-	public void setReferencias(JPanel p, CardLayout c, Login login, LeaderBoard l, Menu menu) {
+	public void setReferencias(JPanel p, CardLayout c, Login login, LeaderBoard l, Menu menu, Loja loja) {
 		this.painel = p;
 		this.cl = c;
 		this.login = login;
 		this.pontuacoesAltas = l;
 		this.menu = menu;
-		System.out.println("Referencias setadas Login");
+		this.loja = loja;
 	}
 
 	public void anoitecer() {

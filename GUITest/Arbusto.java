@@ -55,7 +55,7 @@ public class Arbusto extends Cenario {
 		}
 	}
 
-	public void confere() {
+	public EstadoDoJogo confere(EstadoDoJogo estado) {
 		if (pisoteado == true) {
 			if (contador < 19) {
 				contador++;
@@ -67,6 +67,7 @@ public class Arbusto extends Cenario {
                 		contador = 0;
 			}
 		}
+		return estado;
 	}
 	public void pisotear() {
 		pisoteado = true;

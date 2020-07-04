@@ -30,6 +30,7 @@ public class LeaderBoard extends JPanel implements IPlacares{
 		titulo = new JLabel("Melhores jogadores");
 		titulo.setSize(620,40);
 		titulo.setLocation(50,0);
+		add(titulo);
 		for (int i = 0; i < 15; i++) {
 			placares[i] = new JLabel((i+1) + ".");
 			placares[i].setSize(620,30);
@@ -42,7 +43,7 @@ public class LeaderBoard extends JPanel implements IPlacares{
 		volta.addActionListener(
 			(ActionEvent event)->{
 					menu.startTimer();
-					cl.show(painel,"1");
+					cl.show(painel,"menu");
 			}
 		);
 		volta.setSize(100,40);

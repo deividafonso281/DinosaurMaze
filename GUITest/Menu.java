@@ -35,11 +35,9 @@ public class Menu extends JPanel implements IMenu {
 		add(botaoJogar);
 		botaoJogar.addActionListener(
 			(ActionEvent evento)->{
-					timer.stop();
 					tabuleiro.criaMapa();
-					cl.show(painel, "2");
-					contador = 1;
-					setImagem(contador);
+					cl.show(painel, "tab");
+					resetTimer();
 					tabuleiro.requestFocus();
 					tabuleiro.iniciaTempo();
 			}
@@ -50,8 +48,8 @@ public class Menu extends JPanel implements IMenu {
 		add(botaoPontuacoes);
 		botaoPontuacoes.addActionListener(
 			(ActionEvent event)->{
-					timer.stop();
-					cl.show(painel, "3");
+					cl.show(painel, "leaderboard");
+					resetTimer();
 			}
 		);
 		botaoLoja = new JButton("Loja");
@@ -60,7 +58,8 @@ public class Menu extends JPanel implements IMenu {
 		add(botaoLoja);
 		botaoLoja.addActionListener (
 			(ActionEvent event)->{
-					JOptionPane.showMessageDialog(Menu.this,"Loja temporariamente indisponivel\nVolte mais tarde para adquirir novas skins");
+					 cl.show(painel, "loja");
+                                        resetTimer();
 			}
 		);
 		botaoOpcoes = new JButton("Opcoes");
@@ -69,7 +68,8 @@ public class Menu extends JPanel implements IMenu {
 		add(botaoOpcoes);
 		botaoOpcoes.addActionListener(
 			(ActionEvent event)->{
-					JOptionPane.showMessageDialog(Menu.this,"Em breve novas features");
+                                        cl.show(painel, "opcoes");
+					resetTimer();
 			}
 		);
 		
@@ -116,7 +116,6 @@ public class Menu extends JPanel implements IMenu {
 		this.painel = p;
 		this.cl = c;
 		this.tabuleiro = tabuleiro;
-		System.out.println("Referencias setadas");
 	}
 	
 	private void setImagem(int i) {
@@ -135,5 +134,11 @@ public class Menu extends JPanel implements IMenu {
 	public void startTimer() {
 		this.timer.setInitialDelay(5000);
 		this.timer.start();
+	}
+
+	public void resetTimer() {
+		timer.stop();
+		contador = 1;
+		setImagem(contador);
 	}
 }

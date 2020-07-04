@@ -5,6 +5,10 @@ import java.awt.Graphics;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.CardLayout;
+import javax.imageio.ImageIO;
+import java.io.File;
+import java.io.IOException;
+import java.awt.image.BufferedImage;
 
 public class Login extends JPanel implements ILogin{
 
@@ -13,18 +17,19 @@ public class Login extends JPanel implements ILogin{
 	private JPanel painel;
 	private CardLayout cl;
 	private JTextField campoTexto;
+	private BufferedImage img;
 	
 	public Login() {
 		setLayout(null);
+		setImagem();
 		botaoLogin = new JButton("Login");
 		botaoLogin.setSize(200,50);
 		botaoLogin.setLocation(260,450);
 		botaoLogin.addActionListener(
 			new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					cl.show(painel,"1");
+					cl.show(painel,"menu");
 					nomeUsuario = campoTexto.getText();
-					System.out.println(nomeUsuario);
 				}	
 			}	
 		);
@@ -38,10 +43,22 @@ public class Login extends JPanel implements ILogin{
 	public void setReferencias(JPanel p, CardLayout c) {
 		this.painel = p;
 		this.cl = c;
-		System.out.println("Referencias setadas login");
-    }
+        }
 	
 	public String getUsuario() {
 		return nomeUsuario;
+	}
+	
+	private void setImagem() {
+                try {
+                        img = ImageIO.read(new File("menu6.png"));
+                } catch (IOException e) {
+                }
+    	}
+
+        @Override
+        protected void paintComponent (Graphics g) {
+                super.paintComponent(g);
+                g.drawImage(img, 0, 0, null);
 	}
 }
