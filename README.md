@@ -11,10 +11,10 @@
 # Vídeos do Projeto
 
 ## Vídeo da Prévia
-> [Link do vídeo da prévia](https://www.youtube.com/watch?v=qXy4wn0Sr80)
+[Link do vídeo da prévia](https://www.youtube.com/watch?v=qXy4wn0Sr80)
 
 ## Vídeo do Jogo
-> <Coloque um link para o vídeo em que é demonstrada a versão final do jogo. Esse vídeo deve ter em torno de 5 minutos. Este vídeo não apresenta slides, nem substitui a apresentação final do projeto, que será feita por conferência. Ele mostra apenas o jogo em funcionamento.>
+[Link do jogo funcionando](https://www.youtube.com/watch?v=susYaTDGXnE)
 
 # Slides do Projeto
 
@@ -38,17 +38,116 @@ Enquanto jogávamos, fomos percebendo algumas coisas que nos desagradavam, ou qu
 
 ~~~java
 // cardLayout
-public void algoInteressante(…) {
-   …
-   trechoInteressante = 100;
+public Menu() {
+		
+		botaoJogar = new JButton("Jogar");
+		...
+		add(botaoJogar);
+		botaoJogar.addActionListener(
+			(ActionEvent evento)->{
+					tabuleiro.criaMapa();
+					cl.show(painel, "tab");
+					resetTimer();
+					tabuleiro.requestFocus();
+					tabuleiro.iniciaTempo();
+			}
+		);
+		botaoPontuacoes = new JButton("Maiores pontuacoes");
+		...
+		add(botaoPontuacoes);
+		botaoPontuacoes.addActionListener(
+			(ActionEvent event)->{
+					cl.show(painel, "leaderboard");
+					resetTimer();
+			}
+		);
+		botaoLoja = new JButton("Loja");
+		...		
+		add(botaoLoja);
+		botaoLoja.addActionListener (
+			(ActionEvent event)->{
+					 cl.show(painel, "loja");
+                                        resetTimer();
+			}
+		);
+		botaoOpcoes = new JButton("Opcoes");
+		...
+		add(botaoOpcoes);
+		botaoOpcoes.addActionListener(
+			(ActionEvent event)->{
+                                        cl.show(painel, "opcoes");
+					resetTimer();
+			}
+		);
+		
+		...
+	}
+
+public Aplicacao () {
+	super("Dinosaur Maze");
+	painel.setLayout(cl);
+	menu.setReferencias(painel, cl, tab);
+	login.setReferencias(painel, cl);
+	l.setReferencias(painel, cl, menu);
+	loja.setReferencias(painel,cl,menu);
+	opcoes.setReferencias(painel,cl,menu,tocador);
+	painel.add(menu, "menu");
+	painel.add(tab, "tab");
+	painel.add(login,"login");
+	painel.add(l, "leaderboard");
+	painel.add(opcoes,"opcoes");
+	painel.add(loja,"loja");
+	
+	...
 }
 ~~~
 
 ~~~java
-// ScoreListWritter/Reader
-public void algoInteressante(…) {
-   …
-   trechoInteressante = 100;
+public ScoreListReader implements ILePlacar {
+	...
+	
+	public ScoreList getListaPlacar() {
+		ScoreList listaPlacar;
+		abreArquivo();
+		listaPlacar = leListaPlacar();
+		fechaArquivo();
+		return listaPlacar;
+	}
+}
+
+public class ScoreListWritter implements IEscrevePlacar{
+	...
+	public void salvaListaPlacar (ScoreList listaPlacar) {
+		abreArquivo();
+		escreveListaPlacar(listaPlacar);
+		fechaArquivo();
+	}
+}
+
+public class LeaderBoard extends JPanel implements IPlacares{
+	...
+	public LeaderBoard() {
+		...
+		ListaPontos = scoreListReader.getListaPlacar();
+		atualiza();
+		...
+	}
+	...
+	public void addScore(IScore placar) {
+		ListaPontos.adicionaPontuacao(placar);
+		atualiza();
+	}
+
+	public void atualiza() {
+		for (int i = 0; i < ListaPontos.tamanho; i++) {
+			placares[i].setText((i+1) + "." + ListaPontos.posicoes[i].getUsuario() + "  " + ListaPontos.posicoes[i].getPontuacao());
+		}
+	}
+	
+	public void salvaPlacar() {
+		scoreListWritter.salvaListaPlacar(ListaPontos);
+	}
+	...
 }
 ~~~
 
