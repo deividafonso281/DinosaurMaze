@@ -57,7 +57,7 @@ public class LeaderBoard extends JPanel implements IPlacares{
 		this.menu = menu;
 	}
 	
-	public void addScore(Score placar) {
+	public void addScore(IScore placar) {
 		ListaPontos.adicionaPontuacao(placar);
 		atualiza();
 	}

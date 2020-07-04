@@ -2,12 +2,12 @@ import java.io.Serializable;
 
 public class ScoreList implements Serializable {
 
-	public Score[] posicoes = new Score[15];
-	public Score aux;
+	public IScore[] posicoes = new Score[15];
+	public IScore aux;
 	public int capacidade = 15;
 	public int tamanho = 0;
 
-	public void adicionaPontuacao(Score novo) {
+	public void adicionaPontuacao(IScore novo) {
 		int pos = achaPos(novo);
 		if (tamanho == 15){
 			if (pos != -1) {
@@ -34,7 +34,7 @@ public class ScoreList implements Serializable {
 		}
 	}
 	
-	public int achaPos(Score novo) {
+	public int achaPos(IScore novo) {
 		for (int i = 0; i < tamanho; i++) {
 			if (novo.getPontuacao().compareTo(posicoes[i].getPontuacao()) == 1) {
 				return i;

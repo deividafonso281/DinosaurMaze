@@ -26,7 +26,7 @@ public class Tabuleiro extends JPanel implements ITabuleiro {
 	private JLabel tabelaPontuacao = new JLabel();
 	private JLabel machado = new JLabel("Machados:");
 	private JLabel capacete = new JLabel("Capacetes:");
-	private Score pontuacao;
+	private IScore pontuacao;
 	private Timer timer = new Timer(100,(ActionEvent event)->daUmLoop());
 	private Dinosaur max;
 	private IMovable[] meteoros = new IMovable[5];
