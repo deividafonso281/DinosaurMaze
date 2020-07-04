@@ -37,11 +37,169 @@ Enquanto jogávamos, fomos percebendo algumas coisas que nos desagradavam, ou qu
 > <Escolha trechos relevantes e/ou de destaque do seu código. Apresente um recorte (você pode usar reticências para remover partes menos importantes). Veja como foi usado o highlight de Java para o código.>
 
 ~~~java
-// Recorte do seu código
+// cardLayout
 public void algoInteressante(…) {
    …
    trechoInteressante = 100;
 }
+~~~
+
+~~~java
+// ScoreListWritter/Reader
+public void algoInteressante(…) {
+   …
+   trechoInteressante = 100;
+}
+~~~
+
+~~~java
+// Arbustos
+
+public class Arbusto {
+	...
+	
+	public char qualObjeto() {
+		if (pisoteado==false) {
+			
+			Random aleatorio = new Random();
+			int num = aleatorio.nextInt(9);
+			
+			if (num % 2 == 0) {//0 2 4 6 8 buracos
+				return 'b'; //buraco
+			}
+			if (num == 1) {
+				return 'c'; //capacete
+			}
+			if (num == 3 || num == 5) { 
+				return 'm'; //machadinho
+			}
+			return 'v'; //se o numero for 7 ou 9 retorna vazio
+		}
+		else {
+			return 'n';
+		}
+	}
+
+	public EstadoDoJogo confere(EstadoDoJogo estado) {
+		if (pisoteado == true) {
+			if (contador < 19) {
+				contador++;
+			}
+			else {
+				pisoteado = false;
+				setVisivel(true);
+				setSrc("novo_arbusto.png");
+                		contador = 0;
+			}
+		}
+		return estado;
+	}
+	
+	public void pisotear() {
+		pisoteado = true;
+	}
+}
+
+public class Dinosaur {
+	...
+	public EstadoDoJogo interacao(EstadoDoJogo estado) {
+		...
+		if (efeito_atual == 'b') {
+			((Arbusto)estado.getPeca(atual[0],atual[1])).pisotear();
+			((Arbusto)estado.getPeca(atual[0],atual[1])).setVisivel(false);
+		}
+		else if(efeito_atual == 'c') {
+			if (capacete<3) {
+				capacete++;
+			}
+			((Arbusto)estado.getPeca(atual[0],atual[1])).pisotear();
+			((Arbusto)estado.getPeca(atual[0],atual[1])).setVisivel(false);
+			move();
+			move();
+		}
+		else if (efeito_atual == 'm') {
+			if (machado<3) {
+				machado++;
+			}
+			((Arbusto)estado.getPeca(atual[0],atual[1])).pisotear();
+			((Arbusto)estado.getPeca(atual[0],atual[1])).setVisivel(false);
+			move();
+		}
+		else if (efeito_atual == 'v') {
+			((Arbusto)estado.getPeca(atual[0],atual[1])).pisotear();
+			((Arbusto)estado.getPeca(atual[0],atual[1])).setVisivel(false);
+			move();
+		}
+		...
+	}
+}
+~~~
+
+~~~java
+// Noite
+private boolean noite = false;
+public void paintComponent(…) {
+   …
+   if (noite==true) {
+			int[] pos = max.getAtual();
+			int cantoex = Math.max((pos[0]-1),0);
+			int cantoey = Math.max((pos[1]-1),0);
+			int cantodx = Math.min((pos[0]+2),20);
+			int cantody = Math.min((pos[1]+2),20);
+			g.setColor(Color.BLACK);
+			g.fillRect(0,80,720,720);
+			g.setColor(fundo);
+			g.fillRect(cantoex*36,cantoey*36+80,(cantodx-cantoex)*36,(cantody-cantoey)*36);
+			g.setColor(Color.BLACK);
+			for (int i=cantoex;i<cantodx;i++) {
+				for (int j=cantoey;j<cantody;j++) {
+					g.drawLine(cantoex*36,80 + j * ritmo, cantodx*36, 80 + j * ritmo);
+                                	g.drawLine(i * ritmo, cantoey*36+80, i * ritmo, cantody*36 + 80);
+					if (estado.getPeca(i,j).qualObjeto()!='n') {
+						estado.getPeca(i,j).setVisivel(true);
+						estado.getPeca(i,j).desenha(g);
+						estado.getPeca(i,j).setVisivel(false);
+					}
+				}
+			}
+			...
+		} 
+	...
+}
+
+...
+
+BigInteger x = pontuacao.getPontuacao();
+if (x.intValue() % 150 == 100) {
+	anoitecer();
+}
+else if (x.intValue() % 150 == 0) {
+	amanhecer();
+}
+
+....
+
+private void anoitecer() {
+	for (int i = 0; i < 20; i++) {
+               	for (int j = 0; j < 20; j++) {
+	                if(estado.getPeca(i,j).qualObjeto() != 'n')
+        	                estado.getPeca(i,j).setVisivel(false);
+                	}
+        	}
+		noite = true;
+	}
+
+private void amanhecer() {
+	for (int i = 0; i < 20; i++) {
+               	for (int j = 0; j < 20; j++) {
+                       	if(estado.getPeca(i,j).qualObjeto() != 'n')
+                       		estado.getPeca(i,j).setVisivel(true);
+	                }
+        }
+	noite = false;
+}
+
+
 ~~~
 
 # Destaques de Pattern
