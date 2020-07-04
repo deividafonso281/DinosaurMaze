@@ -105,11 +105,7 @@ Interface agregadora do componente em Java:
 ~~~java
 public interface ITabuleiro {
 	public void criaMapa();
-	public void mataMax();
-	public void amanhecer();
-	public void anoitecer();
 	public void iniciaTempo();
-	public void daUmLoop();
 }
 ~~~
 
@@ -117,27 +113,19 @@ public interface ITabuleiro {
 
 ### Interface `ITabuleiro`
 
-Inicializa o tabuleiro e é responsável por atualizar o jogo, todas as movimentações e passagens de tempo.
+Inicia o tabuleiro e o tempo, comecando o jogo.
 
 ~~~
 public interface ITabuleiro {
 	public void criaMapa();
-	public void mataMax();
-	public void amanhecer();
-	public void anoitecer();
 	public void iniciaTempo();
-	public void daUmLoop();
 }
 ~~~
 
 Método | Objetivo
 -------| --------
 criaMapa() | Posiciona todas as peças no tabuleiro para iniciar o jogo
-mataMax() | Verifica se o Max encontrou com algum meteoro, se sim, encerra o jogo
-amanhecer() | Torna todo o cenário visível novamente
-anoitecer() | Torna noite, parte do cenário fica escondida
 iniciaTempo() | inicia o timer
-daUmLoop() | atualiza o tabuleiro após uma "rodada", incrementa a pontuação
 
 ## Componente Peças com movimento
 
@@ -169,6 +157,8 @@ public interface IMovable {
 	public int[] getEsquerda();
 	public int[] getAtual();
 	public int[] getProx();
+	public void desenha(Graphics g);
+	public EstadoDoJogo interacao (EstadoDoJogo estado);
 }
 ~~~
 
@@ -187,6 +177,8 @@ public interface IMovable {
 	public int[] getEsquerda();
 	public int[] getAtual();
 	public int[] getProx();
+	public void desenha(Graphics g);
+	public EstadoDoJogo interacao (EstadoDoJogo estado);
 }
 ~~~
 
@@ -199,6 +191,8 @@ getDireita() | Retorna o que tem na direita da personagem
 getEsquerda() | Retorna o que tem na esquerda da personagem
 getAtual() | Retorna a posição atual da personagem
 getProx() | Retorna o que tem na casa da frente da personagem
+desenha() | Desenha o componente
+interacao() | Interacao das pecas que se movimentam com o cenario
 
 ## Componente Cenário
 
@@ -227,6 +221,7 @@ public interface ICenario {
 	public boolean getVisivel();
 	public char qualObjeto();
 	public void setSrc(String src);
+	public void desenha(Graphics g);
 }
 ~~~
 
@@ -242,6 +237,7 @@ public interface ICenario {
 	public boolean getVisivel();
 	public char qualObjeto();
 	public void setSrc(String src);
+	public void desenha(Graphics g);
 }
 ~~~
 
@@ -251,6 +247,7 @@ setVisivel() | Torna o objeto visível
 getVisivel() | Retorna a visibilidade do objeto
 qualObjeto() | Decide o tipo de objeto, um para árvores e quatro tipos para o arbusto, dependendo do que ele esconde 
 setSrc() | Nome da imagem
+desenha() | Desenha o objeto
 
 ## Componente Placar
 
@@ -276,6 +273,8 @@ Interface agregadora do componente em Java:
 ~~~java
 public interface IScore {
 	public void incrementa();
+	public BigInteger getPontuacao();
+	public String getUsuario();
 }
 ~~~
 
@@ -288,12 +287,16 @@ Incrementa a pontuação a cada rodada.
 ~~~
 public interface IScore {
 	public void incrementa();
+	public BigInteger getPontuacao();
+	public String getUsuario();
 }
 ~~~
 
 Método | Objetivo
 -------| --------
-setIncrementa() | Incrementa o placar
+incrementa() | Incrementa o placar
+getPontuacao() | Retorna a pontuacao
+getUsusario | Retorna o usuario
 
 # Plano de Exceções
 
