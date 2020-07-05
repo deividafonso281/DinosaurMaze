@@ -306,18 +306,43 @@ private void amanhecer() {
 
 ## Diagrama do Pattern
 `<Diagrama do pattern dentro do contexto da aplicação.>`
+![Diagrama Data Access Object Pattern](DataAccessObjectPattern.png)
 
 ## Código do Pattern
 ~~~java
 // Recorte do código do pattern seguindo as mesmas diretrizes de outros destaques
-public void algoInteressante(…) {
-   …
-   trechoInteressante = 100;
+public class ConjuntoDeScores {
+
+        private ScoreListWritter scoreListWritter;
+        private ScoreListReader scoreListReader;
+        private ScoreList scoreList;
+
+        public ConjuntoDeScores() {
+                scoreListWritter = new ScoreListWritter();
+                scoreListReader = new ScoreListReader();
+                scoreList = scoreListReader.getListaPlacar();
+        }
+
+        public void adicionaScore(IScore novo) {
+                scoreList.adicionaPontuacao(novo);
+        }
+
+        public void salvaPlacares() {
+                scoreListWritter.salvaListaPlacar(scoreList);
+        }
+
+        public IScore getPlacar(int i) {
+                return scoreList.posicoes[i];
+        }
+
+        public int getTamanho() {
+                return scoreList.tamanho;
+        }
 }
 ~~~
 
 > <Explicação de como o pattern foi adotado e quais suas vantagens, referenciando o diagrama.>
-
+O pattern Data Access Object deixa a cargo do objeto ConjuntoDeScores de salvar e recuperar dados serializados na memória permitindo a persistência de pontuacoes. O fato do próprio objeto ser responsável por tais operações é muito importante, por exemplo, para o uso de banco de dados.
 # Documentação dos Componentes
 
 # Diagramas
