@@ -107,7 +107,6 @@ public class Tabuleiro extends JPanel implements ITabuleiro {
 					}
 				}
 			}
-			estado.desenhaEstado(g);
 			for (int i = 0; i < 5; i++) {
                                 meteoros[i].desenha(g);
                         }
