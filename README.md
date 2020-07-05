@@ -354,6 +354,7 @@ O pattern Data Access Object deixa a cargo do objeto ConjuntoDeScores de salvar 
 > <Faça uma breve descrição do diagrama.>
 
 ## Diagrama Geral de Componentes
+![Diagrama Componentes](DiagramaDeComponentes-2.png)
 
 ### Exemplo 1
 
