@@ -2,7 +2,7 @@
 
 # Descrição Resumida do Jogo
 
-   Os dinossauros estão correndo risco de extinção! Para que isso não ocorra, você precisa ajudar Max a fugir de alguns meteoros. O jogo ocorre em um espaço delimitado onde se encontram o dinossauro, Max, alguns meteoros e o cenário local: árvores, que terão que ser contornadas, e arbustos, que escondem surpresas que podem ajudar ou atrapalhar Max em sua jornada. Também é preciso ficar esperto com o tempo, já que durante a noite a capacidade de visão do protagonista é reduzida. O objetivo do jogo é conseguir o maior número possível de pontos. Para isso, faça com que o dinossauro sobreviva durante o máximo de tempo que conseguir. O jogo acaba quando um dos meteoros finalmente colide contra o dinossauro.
+   Os dinossauros estão correndo risco de extinção! Para que isso não ocorra, você precisa ajudar Max a fugir de alguns meteoros. O jogo ocorre em um espaço delimitado onde se encontram o dinossauro, Max, alguns meteoros e o cenário local: árvores, que terão que ser contornadas, e arbustos, que escondem surpresas que podem ajudar ou atrapalhar o dinossauro em sua jornada. Também é preciso ficar esperto com o tempo, já que durante a noite a capacidade de visão do protagonista é reduzida. O objetivo do jogo é conseguir o maior número possível de pontos. Para isso, faça com que Max sobreviva o máximo de tempo que conseguir. O jogo acaba quando um dos meteoros finalmente colide contra o dinossauro.
 
 # Equipe
 * David Afonso Borges dos Santos - 261032
@@ -22,19 +22,17 @@
 [Link apresentação de slides da prévia](https://docs.google.com/presentation/d/1z7tYh_-3t55z-gPLHGo0pKrxIzfjaR9ctWesbCXJPjg/edit#slide=id.g86f2d35873_0_0)
 
 ## Slides da Apresentação Final
-`<Coloque um link para os slides da apresentação final do projeto.>`
+[Link apresentação final](https://docs.google.com/presentation/d/1AwOo_e6A5JNfURLrAml2dwAMmKOE5ZG9PnnlBWIjlkA/edit?usp=sharing)
 
 ## Relatório de Evolução
 
-Em um primeiro momento, buscamos decidir que tipo de jogo iríamos fazer. Para isso, começamos a listar jogos que gostamos e que se encaixassem em um espaço celular. Decidimos então seguir um padrão estilo pacman, um personagem principal procurando fugir de outros dentro de um espaço limitado. A partir disso, tivemos ideias que completassem o jogo e desse a nossa cara para ele. Inicialmente, decidímos por um dinossauro, fugindo de meteoros, que iria ter que comer toda comida disposta sobre o tabuleiro antes de ser capturado por uma bola de fogo. Pensamos também em algum tipo de ajuda que o dinossauro pudesse ter ao longo do jogo, o que nos levou aos arbustos escondendo objetos que ajudam ou atrapalham o personagem principal. Com o tempo, também decidimos colocar as árvores e adicionar a noite, para tornar o jogo mais emocionante. Uma mudança que acabamos fazendo foi contar a pontuação a partir do tempo que o personagem sobrevivia, não a partir de casas andadas ou peças comidas. Isso ocorreu para que o jogo pudesse durar mais tempo, não tendo assim um teto máximo de pontuação.
+Em um primeiro momento, buscamos decidir que tipo de jogo iríamos fazer. Para isso, começamos a listar jogos que gostamos e que se encaixassem em um espaço celular. Então optamos por seguir um padrão estilo pacman, um personagem principal procurando fugir de outros dentro de um espaço limitado. A partir disso, tivemos ideias que completassem o jogo e desse a nossa cara para ele. Inicialmente, pensamos em um dinossauro fugindo de meteoros que iria ter que comer toda comida disposta sobre o tabuleiro antes de ser capturado por uma bola de fogo. Também chegamos ao consenso de criar algum tipo de ajuda que o dinossauro pudesse ter ao longo do jogo, o que nos levou aos arbustos escondendo objetos. Com o tempo, resolvemos colocar as árvores e adicionar a noite, para tornar o jogo mais emocionante. Uma mudança que acabamos fazendo foi contar a pontuação a partir do tempo que o personagem sobrevivia, não a partir de casas andadas ou peças comidas. Isso ocorreu para que o jogo pudesse durar mais, não tendo um teto máximo de pontuação.
 
 Com todas as ideias prontas, começamos a escrever o código. Foi um tanto diferente, pois foi o primeiro momento que mexemos com interface gráfica, então tivemos que procurar coisas a respeito, o que nos abriu um novo universo cheio de oportunidades. Ademais, outra ferramenta nova que utilizamos foi o timer do Java, importante para o projeto, mas que causou certo estranhamento no início. Com o desenvolvimento do projeto, novas ideias foram surgindo e sendo implementadas ao jogo, como a música de fundo e as mudanças de imagens. As principais dificuldades que encontramos ao longo do caminho foi saber como utilizar algumas ferramentas, nunca utilizadas anteriormente, como o cardlayout para mudar de página, ler, escrever e salvar os placares na lista e também colocar a música de fundo. Entretanto, após pesquisar bastante em fontes diversas, foi possível chegar ao resultado final.
 
-Enquanto jogávamos, fomos percebendo algumas coisas que nos desagradavam, ou que tornavam o jogo um tanto quanto fácil, como as surpresas debaixo do arbusto e o uso do machado em certas circunstâncias. Apesar de, no princípio, serem aleatórias a cada novo jogo, se um jogador desse muita sorte poderia recolher muitos machados ou não ter buracos em seu caminho, e as surpresas se manteriam as mesmas embaixo de cada arbusto, sendo repostas a cada vez que recolhidas. Decidimos então que um novo arbusto apareceria após um personagem passar por cima desse, com uma outra surpresa aleatória embaixo. Também tomamos o cuidado para que não fosse possível o dinossauro ficar escondido o tempo todo em uma árvore, assim que utilizasse o machado, como ocorria nas primeiras versões do jogo. Agora, o jogador só pode ficar em umas dessas casas inalcançáveis por algumas rodadas.
+Enquanto jogávamos, fomos percebendo algumas coisas que nos desagradavam, ou que tornavam o jogo um tanto quanto fácil, como as surpresas debaixo do arbusto e o uso do machado em certas circunstâncias. Apesar de, no princípio, serem aleatórias a cada novo jogo, se um jogador desse muita sorte poderia recolher muitos machados ou não ter buracos em seu caminho, e as surpresas se manteriam as mesmas embaixo de cada arbusto, sendo repostas a cada vez que recolhidas. Decidimos então que um novo arbusto apareceria após um personagem passar por cima desse, com uma outra surpresa aleatória embaixo. Também tomamos o cuidado para que não fosse possível o dinossauro ficar escondido o tempo todo em uma árvore, assim que utilizasse o machado, como ocorria nas primeiras versões do jogo, agora só poderia ficar em umas dessas casas inalcançáveis por algumas rodadas.
 
 # Destaques de Código
-
-> <Escolha trechos relevantes e/ou de destaque do seu código. Apresente um recorte (você pode usar reticências para remover partes menos importantes). Veja como foi usado o highlight de Java para o código.>
 
 ~~~java
 // cardLayout
@@ -103,6 +101,7 @@ public Aplicacao () {
 ~~~
 
 ~~~java
+//scoreWritter/Reader
 public ScoreListReader implements ILePlacar {
 	...
 	
@@ -302,15 +301,14 @@ private void amanhecer() {
 ~~~
 
 # Destaques de Pattern
-`<Destaque de patterns adotados pela equipe. Sugestão de estrutura:>`
 
 ## Diagrama do Pattern
-`<Diagrama do pattern dentro do contexto da aplicação.>`
+Diagrama do pattern dentro do contexto da aplicação.
 ![Diagrama Data Access Object Pattern](DataAccessObjectPattern.png)
 
 ## Código do Pattern
 ~~~java
-// Recorte do código do pattern seguindo as mesmas diretrizes de outros destaques
+
 public class ConjuntoDeScores {
 
         private ScoreListWritter scoreListWritter;
@@ -341,34 +339,31 @@ public class ConjuntoDeScores {
 }
 ~~~
 
-> <Explicação de como o pattern foi adotado e quais suas vantagens, referenciando o diagrama.>
 O pattern Data Access Object deixa a cargo do objeto ConjuntoDeScores de salvar e recuperar dados serializados na memória permitindo a persistência de pontuacoes. O fato do próprio objeto ser responsável por tais operações é muito importante, por exemplo, para o uso de banco de dados.
+
+# Conclusões e Trabalhos Futuros
+
+> <Apresente aqui as conclusões do projeto e propostas de trabalho futuro. Esta é a oportunidade em que você pode indicar melhorias no projeto a partir de lições aprendidas e conhecimentos adquiridos durante a realização do projeto, mas que não puderam ser implementadas por questões de tempo. Por exemplo, há design patterns aprendidos no final do curso que provavelmente não puderam ser implementados no jogo -- este é o espaço onde você pode apresentar como aplicaria o pattern no futuro para melhorar o jogo.>
+
+
 # Documentação dos Componentes
 
 # Diagramas
 
 ## Diagrama Geral do Projeto
 
-> <Apresente um diagrama geral de organização da organização do seu sistema. O formato é livre. A escolha de um ou mais estilos arquiteturais será considerado um diferencial.>
+![Diagrama Componentes](DiagramaDeComponentes-2.png)
 
 > <Faça uma breve descrição do diagrama.>
 
 ## Diagrama Geral de Componentes
-![Diagrama Componentes](DiagramaDeComponentes-2.png)
-
-### Exemplo 1
-
-Este é o diagrama compondo componentes para análise:
-
-![Diagrama Analise](diagrama-componentes-analise.png)
-
-Para cada componente será apresentado um documento conforme o modelo a seguir:
+![Diagrama Componentes](Componentes.png)
 
 ## Componente Tabuleiro
 
 Onde o jogo ocorre, o espaço onde todas as peças serão alocadas e se movimentarão. Responsável por atualizar a posição de alguma peça quando essa realiza movimento, além de controlar o tempo.
 
-![Componente](diagrama-componente.png)
+![Componente](Tabuleiroc.png)
 
 **Ficha Técnica**
 item | detalhamento
@@ -414,7 +409,7 @@ iniciaTempo() | inicia o timer
 
 Dinossauro e meteoros, se deslocam pelo tabuleiro, seus movimentos definem a dinâmica do jogo, aumentando a pontuação ou determinando o fim do jogo.
 
-![Componente](diagrama-componente.png)
+![Componente](Movablec.png)
 
 **Ficha Técnica**
 item | detalhamento
@@ -481,7 +476,7 @@ interacao() | Interacao das pecas que se movimentam com o cenario
 
 Peças que compõe a paisagem do jogo, são dispostas sobre o tabuleiro e interagem com as peças que se movimentam
 
-![Componente](diagrama-componente.png)
+![Componente](Cenarioc.png)
 
 **Ficha Técnica**
 item | detalhamento
@@ -536,7 +531,7 @@ desenha() | Desenha o objeto
 
 Pontuação do jogador da rodada atual
 
-![Componente](diagrama-componente.png)
+![Componente](Scorec.png)
 
 **Ficha Técnica**
 item | detalhamento
@@ -584,13 +579,10 @@ getUsusario | Retorna o usuario
 # Plano de Exceções
 
 ## Diagrama da hierarquia de exceções
-`<Elabore um diagrama com a hierarquia de exceções como detalhado abaixo>`
 
-![Hierarquia Exceções](exception-hierarchy.png)
+![Hierarquia Exceções](DiagramaDeExcessoes.png)
 
 ## Descrição das classes de exceção
-
-`<Monte uma tabela descritiva seguindo o exemplo>:`
 
 Classe | Descrição
 ----- | -----
