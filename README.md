@@ -594,6 +594,6 @@ getUsusario | Retorna o usuario
 
 Classe | Descrição
 ----- | -----
-DivisaoInvalida | Engloba todas as exceções de divisões não aceitas.
-DivisaoInutil | Indica que a divisão por 1 é inútil.
-DivisaoNaoInteira | Indica uma divisão não inteira.
+IOException | Notifica que operações de entradda ou saída falharam ou foram interrompidas .
+NullPointerException | Notifica que a variável requisitada não faz referência a nenhum objeto.
+ClassNotFoundException | Notifica quando ocorre um erro na leitura de classes em arquivos serializados.
