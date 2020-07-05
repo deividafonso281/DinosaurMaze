@@ -352,18 +352,18 @@ O pattern Data Access Object deixa a cargo do objeto ConjuntoDeScores de salvar 
 
 ## Diagrama Geral do Projeto
 
-> <Apresente um diagrama geral de organização da organização do seu sistema. O formato é livre. A escolha de um ou mais estilos arquiteturais será considerado um diferencial.>
+![Diagrama Componentes](DiagramaDeComponentes-2.png)
 
 > <Faça uma breve descrição do diagrama.>
 
 ## Diagrama Geral de Componentes
-![Diagrama Componentes](DiagramaDeComponentes-2.png)
+![Diagrama Componentes](Componentes.png)
 
 ## Componente Tabuleiro
 
 Onde o jogo ocorre, o espaço onde todas as peças serão alocadas e se movimentarão. Responsável por atualizar a posição de alguma peça quando essa realiza movimento, além de controlar o tempo.
 
-![Componente](diagrama-componente.png)
+![Componente](Tabuleiroc.png)
 
 **Ficha Técnica**
 item | detalhamento
@@ -409,7 +409,7 @@ iniciaTempo() | inicia o timer
 
 Dinossauro e meteoros, se deslocam pelo tabuleiro, seus movimentos definem a dinâmica do jogo, aumentando a pontuação ou determinando o fim do jogo.
 
-![Componente](diagrama-componente.png)
+![Componente](Movablec.png)
 
 **Ficha Técnica**
 item | detalhamento
@@ -476,7 +476,7 @@ interacao() | Interacao das pecas que se movimentam com o cenario
 
 Peças que compõe a paisagem do jogo, são dispostas sobre o tabuleiro e interagem com as peças que se movimentam
 
-![Componente](diagrama-componente.png)
+![Componente](Cenarioc.png)
 
 **Ficha Técnica**
 item | detalhamento
@@ -531,7 +531,7 @@ desenha() | Desenha o objeto
 
 Pontuação do jogador da rodada atual
 
-![Componente](diagrama-componente.png)
+![Componente](Scorec.png)
 
 **Ficha Técnica**
 item | detalhamento
