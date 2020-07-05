@@ -13,12 +13,10 @@ import java.awt.Color;
 
 public class LeaderBoard extends JPanel implements IPlacares{
 
-	private ScoreListWritter scoreListWritter = new ScoreListWritter();
-	private ScoreListReader scoreListReader = new ScoreListReader();
+	private ConjuntoDeScores conjuntoDeScores;
 	private JPanel painel;
 	private CardLayout cl;
 	private Menu menu;
-	private ScoreList ListaPontos;
 	private JButton volta;
 	private JLabel titulo;
 	private JLabel[] placares = new JLabel[15];
@@ -37,7 +35,7 @@ public class LeaderBoard extends JPanel implements IPlacares{
 			placares[i].setLocation(50,40+i*40);
 			add(placares[i]);
 		}
-		ListaPontos = scoreListReader.getListaPlacar();
+		conjuntoDeScores = new ConjuntoDeScores();
 		atualiza();
 		volta = new JButton("Voltar");
 		volta.addActionListener(
@@ -58,18 +56,18 @@ public class LeaderBoard extends JPanel implements IPlacares{
 	}
 	
 	public void addScore(IScore placar) {
-		ListaPontos.adicionaPontuacao(placar);
+		conjuntoDeScores.adicionaScore(placar);
 		atualiza();
 	}
 
 	public void atualiza() {
-		for (int i = 0; i < ListaPontos.tamanho; i++) {
-			placares[i].setText((i+1) + "." + ListaPontos.posicoes[i].getUsuario() + "  " + ListaPontos.posicoes[i].getPontuacao());
+		for (int i = 0; i < conjuntoDeScores.getTamanho(); i++) {
+			placares[i].setText((i+1) + "." + conjuntoDeScores.getPlacar(i).getUsuario() + "  " + conjuntoDeScores.getPlacar(i).getPontuacao());
 		}
 	}
 	
 	public void salvaPlacar() {
-		scoreListWritter.salvaListaPlacar(ListaPontos);
+		conjuntoDeScores.salvaPlacares();
 	}
 
 	private void setImagem() {

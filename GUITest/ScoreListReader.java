@@ -18,7 +18,7 @@ public class ScoreListReader implements ILePlacar{
 	}
 	
 	public ScoreList leListaPlacar() {
-		ScoreList listaPlacar = new ScoreList();
+		ScoreList listaPlacar = new ScoreList(); 
 		try {
 			listaPlacar = (ScoreList) entrada.readObject();
 		} catch (IOException ioException) {
