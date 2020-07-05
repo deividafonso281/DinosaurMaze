@@ -586,7 +586,7 @@ getUsusario | Retorna o usuario
 ## Diagrama da hierarquia de exceções
 `<Elabore um diagrama com a hierarquia de exceções como detalhado abaixo>`
 
-![Hierarquia Exceções](exception-hierarchy.png)
+![Hierarquia Exceções](DiagramaDeExcessoes.png)
 
 ## Descrição das classes de exceção
 
