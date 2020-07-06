@@ -352,7 +352,7 @@ O pattern Data Access Object deixa a cargo do objeto ConjuntoDeScores de salvar 
 
 ## Diagrama Geral do Projeto
 
-![Diagrama Componentes](DiagramaDeComponentes-2.png)
+![Diagrama Componentes](diagrama.jpeg)
 
 > <Faça uma breve descrição do diagrama.>
 
