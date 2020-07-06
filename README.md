@@ -343,7 +343,13 @@ O pattern Data Access Object deixa a cargo do objeto ConjuntoDeScores de salvar 
 
 # Conclusões e Trabalhos Futuros
 
-> <Apresente aqui as conclusões do projeto e propostas de trabalho futuro. Esta é a oportunidade em que você pode indicar melhorias no projeto a partir de lições aprendidas e conhecimentos adquiridos durante a realização do projeto, mas que não puderam ser implementadas por questões de tempo. Por exemplo, há design patterns aprendidos no final do curso que provavelmente não puderam ser implementados no jogo -- este é o espaço onde você pode apresentar como aplicaria o pattern no futuro para melhorar o jogo.>
+O projeto DinosaurMaze teve início como um simples JOptionPane e, ao longo de semanas, foi evoluindo gradativamente, de uma ideia no papel até ganhar a forma real do desafio proposto.
+
+A partir da aplicação das ferramentas de StackOverFlow e do livro Java How To Program de Deitel&Deitel, que se mostraram verdadeiros aliados na busca pelo resultado, foi possível criar um jogo ao mesmo tempo divertido, esteticamente agradável e funcional.
+
+A trajetória aqui traçada não se manteve presa a um projeto rígido, mas sim um projeto fluido uma vez que o aprendizado da linguagem Java ocorreu simultaneamente ao desenvolvimento do jogo, ocasionando diversas mudanças de rumo de acordo com a sedimentação do conhecimento.
+
+Por fim, com a bagagem adquirida durante a experiência foi possível olhar para trás e analisar os erros além de propor novas ideias que talvez mudariam completamente a estrutura do DinosaurMaze. Dentre elas podemos destacar o uso de outros Design Patterns como o SingleTon para criar as páginas e permitir seu acesso ao longo do aplicativo; o Facade para deixar objeto EstadoDeJogo responsável por todas as operações que envolvem partes estáticas do jogo (Cenário, Tree, Arbusto e Toquinho); o Mediator para gerenciar as interações entre dinossauro e meteoros e a padronização do nome de classes e variáveis.
 
 
 # Documentação dos Componentes
